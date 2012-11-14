@@ -93,7 +93,7 @@ private class MapSizeWindow extends Window {
     }
   }
   
-  void show () { reset(); super.isOpen = true; fileMenu.deactivate(); }
+  void show () { reset(); super.isOpen = true; fileMenu.reset(); fileMenu.deactivate(); }
   void hide () { reset(); super.isOpen = false; fileMenu.activate(); }
   void error (String msg) { hide(); dialog.error(msg); }
  

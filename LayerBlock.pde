@@ -45,23 +45,17 @@ private class LayerBlock {
   LayerBlock (int x, int y, int w, int h) {
     tileWidth = 60;
     tileHeight = 60;
-    //mapData = new int[mapDataDefault.length][mapDataDefault[0].length];
     posX = x;
     posY = y;
-    //sizeWidth = w;
-    //sizeHeight = h;
   }
   
   void init (int[][] newMapData) {
     mapData = new int[newMapData.length][newMapData[0].length];
-    for (int y = 0; y < newMapData.length; y++) 
-      for (int x = 0; x < newMapData[0].length; x++) 
-        mapData[y][x] = newMapData[y][x];
+    arrayCopy(newMapData, mapData);
     totalTilesX = mapData[0].length;
     totalTilesY = mapData.length;
     mapWidth = tileWidth * totalTilesX;
     mapHeight = tileHeight * totalTilesY;
-    //prettyPrint();
   }
   
   void reset (int[][] newMapData) {

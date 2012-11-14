@@ -16,7 +16,7 @@ private class Dialog extends Window {
   }
   
   void init () {
-    super.resetOffsets();
+    super.init();
     methodRequest = null;
     message = null;
     question = null;
@@ -25,16 +25,11 @@ private class Dialog extends Window {
     callbackMethodArgs = null;
   }
   
-  void reset () {
-    init();
-  }
-  
-  void destroy () {
-    reset();
-  }
+  void reset () { init(); }
+  void destroy () { reset(); }
   
   void redraw () {
-    super.init();
+    super.resetOffsets();
     if (super.isOpen) {
       if (message != null) {
         super.drawModalBox("Editor Message");
@@ -54,6 +49,7 @@ private class Dialog extends Window {
           } catch (IllegalAccessException e) { error(e.getMessage());
           } catch (InvocationTargetException e) { error(e.getMessage());
           }
+          destroy();
         }
       }
     }
@@ -65,14 +61,11 @@ private class Dialog extends Window {
   }
   
   void showMessage (String m) {
-    println(m);
-    reset();
     message = m;
     super.isOpen = true;
   }
   
   void askQuestion (PApplet a, String q, String m, HashMap p) {
-    reset();
     classObject = a;
     question = q;
     callbackMethod = m;

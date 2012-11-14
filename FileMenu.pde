@@ -59,18 +59,14 @@ private class FileMenu {
     activeSubMenuOffsetLeft = 0;
     activeMenuItem = -1;
     isMouseOverFileMenu = false;
-    isActive = true;
-    System.out.println("init");
   } 
   
   void reset () {
     init();
-    // mouse coords are not updated when the sketch has lost focus, so temporarily spoof them so they don't play havoc on the UI
-    //applet.mouseX = applet.mouseY = 0;
   }
 
-  void deactivate () { reset(); isActive = false; System.out.println("deactivate"); }  
-  void activate () { isActive = true; }
+  void deactivate () { isActive = false; println("FILE MENU DEACTIVATED"); }  
+  void activate () { isActive = true; println("FILE MENU ACTIVATED"); }
   
   void redraw () {
     
@@ -166,8 +162,8 @@ private class FileMenu {
           switch (activeMenuItem) {
           case 0: 
             switch (i) {
-              case 0: exportMap(); break;
-              case 1: requestMapImport(); break;
+              case 0: reset(); exportMap(); break;
+              case 1: reset(); requestMapImport(); break;
               case 2: exit(); break; 
             }
             break;
@@ -182,8 +178,9 @@ private class FileMenu {
 
       } 
     }
+    
+    if (isActive && mouse.wasClicked && !isMouseOverFileMenu && activeMenuItem >= 0) reset();
   
-    if (isActive && mouse.wasClicked && !isMouseOverFileMenu) reset();
       
   }
   

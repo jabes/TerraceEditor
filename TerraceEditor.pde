@@ -64,6 +64,8 @@ void setup () {
   backgroundImage = resources.tile(applet.width, applet.height, 40, 40, resources.viewportBackground);
   
   viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);  
+
+  fileMenu.activate();
   
 }
 
@@ -129,13 +131,15 @@ void exportMap () {
   data = append(data, globals.groupDelimiter + "PLAYER");
   data = append(data, str(objectsLayer.playerTileX) + globals.inlineDelimiter + str(objectsLayer.playerTileY));
   data = append(data, globals.groupDelimiter + "BLOCKS");
-  //for (int i = 0; i < blocksLayer.mapData.length; i++) data = concat(i > 0 ? append(data, globals.groupDelimiter) : data, str(blocksLayer.mapData[i]));
   for (int y = 0; y < blocksLayer.mapData.length; y++) data = append(data, join(nf(blocksLayer.mapData[y], 0), globals.inlineDelimiter));
   data = append(data, globals.groupDelimiter + "OBJECTS");
-  //for (int i = 0, ii = objects.size(); i < ii; i++) data = concat(i > 0 ? append(data, globals.groupDelimiter) : data, str((int[])objects.get(i)));
-  for (int i = 0, ii = objects.size(); i < ii; i++) data = append(data, join(nf((int[])objects.get(i), 0), globals.inlineDelimiter));
+  int[] objectData; 
+  for (int i = 0, ii = objects.size(); i < ii; i++) {
+    objectData = (int[]) objects.get(i);
+    objectData[3] += 1; // the game engine indexes at 1 not 0
+    data = append(data, join(nf(objectData, 0), globals.inlineDelimiter));
+  }
   saveStrings(fileName, data);
-  fileMenu.reset();
   dialog.showMessage("Map was saved as: " + fileName);
 }
 
@@ -143,55 +147,43 @@ void requestMapImport () {
   String[] data = loadStrings(selectInput("Load Map File..."));
   HashMap args = new HashMap();
   args.put("mapdata", data);
-  fileMenu.reset();
   if (data != null) dialog.askQuestion(applet, "Are you sure you want to load a new map?" + globals.EOL + "All un-saved progress will be lost.", "importMap", args);
 }
 
 void importMap (HashMap params) {
-  String dataType = "";
   String[] data = (String[]) params.get("mapdata");
+  String dataType = "";
   int lineCount = 0;
-  int delimitCount = 0;
-  int[] interativeObject = new int[4];
   int[][] newMapData = new int[10][1];
   if (data == null) fileMenu.reset();
   else {
     objects.clear();
+    enemies.clear();
     for (int i = 0; i < data.length; i++) {
       if (data[i].substring(0, 1).equals(globals.groupDelimiter)) {
-        String d = data[i].substring(1); // second char
-        if (!d.equals("")) { // determine if delimiter is succeeded by characters
-          dataType = d; // player, blocks, objects?
-          delimitCount = 0;
-        } else { // map data delimiters (have no succeeding chars)
-          delimitCount++;
-        }
+        // determine if delimiter is succeeded by characters
+        if (!data[i].substring(1).equals("")) dataType = data[i].substring(1);
         lineCount = 0;
       } else {
-        int n = int(data[i]);
+        int[] rowData = int(split(data[i], globals.inlineDelimiter));
         if (dataType.equals("PLAYER")) {
-          switch (lineCount) {
-            case 0: objectsLayer.playerTileX = n; break;
-            case 1: objectsLayer.playerTileY = n; break;
-          }
+          objectsLayer.playerTileX = rowData[0];
+          objectsLayer.playerTileY = rowData[1];
         } else if (dataType.equals("BLOCKS")) {
-          if (newMapData[0].length < lineCount + 1)
-            for (int y = 0; y < newMapData.length; y++) 
-              newMapData[y] = expand(newMapData[y], newMapData[y].length + 1); // expand each inner array by 1 slot
-          newMapData[delimitCount][lineCount] = n;
+          newMapData[lineCount] = expand(newMapData[lineCount], rowData.length);
+          arrayCopy(rowData, newMapData[lineCount]);
         } else if (dataType.equals("OBJECTS")) {
-          interativeObject[lineCount] = n;
-          if (lineCount + 1 == interativeObject.length) 
-            objects.add(subset(interativeObject, 0)); // subset = fast array copy?
+          rowData[3] -= 1; // the game engine indexes at 1 not 0
+          objects.add(rowData);
+        } else if (dataType.equals("ENEMIES")) {
+          enemies.add(rowData);
         }
         lineCount++;
       }
-      if (i == data.length - 1) {
-        blocksLayer.reset(newMapData);
-        viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);  
-        dialog.showMessage("Map was successfully loaded.");
-      }
     }
+    blocksLayer.reset(newMapData);
+    viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);  
+    dialog.showMessage("Map was successfully loaded.");
   }
 }
   
