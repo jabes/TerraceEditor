@@ -66,7 +66,7 @@ public class SelectionPane {
     selectedEnemy = 0;
   }
   
-  void redraw () {
+  void iterate () {
     
     pushStyle();
     fill(255);

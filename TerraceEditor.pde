@@ -83,24 +83,24 @@ void draw () {
   applet.translate(viewportScrubOffsetLeft, 0);
 
   if (activeMapLayer != 0) applet.tint(255, getAlpha(0.35));
-  blocksLayer.redraw();
+  blocksLayer.iterate();
   applet.noTint();
   
   if (activeMapLayer != 1) applet.tint(255, getAlpha(0.35));
-  objectsLayer.redraw();
+  objectsLayer.iterate();
   applet.noTint();
   
   if (activeMapLayer != 2) applet.tint(255, getAlpha(0.35));
-  enemyLayer.redraw();
+  enemyLayer.iterate();
   applet.noTint();
   
   applet.translate(-viewportScrubOffsetLeft, 0);
   
-  selectionPane.redraw();  
-  viewportScroller.redraw();
-  fileMenu.redraw();
-  dialog.redraw();
-  changeMapSizeWindow.redraw();
+  selectionPane.iterate();  
+  viewportScroller.iterate();
+  fileMenu.iterate();
+  dialog.iterate();
+  changeMapSizeWindow.iterate();
   
   cursor(mouse.cursor);
     

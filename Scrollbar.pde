@@ -40,7 +40,7 @@ public class Scrollbar {
   
   void reset () { init(); }
   
-  void redraw () {
+  void iterate () {
     
     if (
       !isDisabled 

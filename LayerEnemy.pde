@@ -36,7 +36,7 @@ private class LayerEnemy {
   void init () {}
   void reset () { init(); }
   
-  void redraw () {
+  void iterate () {
     for (int i = 0, ii = enemies.size(); i < ii; i++) {
       // 0 = tileX
       // 1 = tileY

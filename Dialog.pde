@@ -28,7 +28,7 @@ private class Dialog extends Window {
   void reset () { init(); }
   void destroy () { reset(); }
   
-  void redraw () {
+  void iterate () {
     super.resetOffsets();
     if (super.isOpen) {
       if (message != null) {

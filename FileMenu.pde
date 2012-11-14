@@ -68,7 +68,7 @@ private class FileMenu {
   void deactivate () { isActive = false; println("FILE MENU DEACTIVATED"); }  
   void activate () { isActive = true; println("FILE MENU ACTIVATED"); }
   
-  void redraw () {
+  void iterate () {
     
     isMouseOverFileMenu = false;
     

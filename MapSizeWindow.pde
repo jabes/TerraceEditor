@@ -23,7 +23,7 @@ private class MapSizeWindow extends Window {
     reset();
   }
   
-  void redraw () {
+  void iterate () {
     
     int value = -1;
     super.resetOffsets();

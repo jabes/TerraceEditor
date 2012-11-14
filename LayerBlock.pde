@@ -62,7 +62,7 @@ private class LayerBlock {
     init(newMapData);
   }
   
-  void redraw () {
+  void iterate () {
     for (int y = 0; y < totalTilesY; y++) {
       for (int x = 0; x < totalTilesX; x++) { 
         int tileType = mapData[y][x];

@@ -31,7 +31,7 @@ private class LayerObject {
   
   void reset () { init(); }
   
-  void redraw () {
+  void iterate () {
   
     int tileX;
     int tileY;
