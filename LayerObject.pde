@@ -10,11 +10,11 @@ private class LayerObject {
   
   // x, y, w, h
   final int[][] objectLegend = {
-    {0, 30, 32, 30}, // strong spring
-    {32, 30, 32, 30}, // weak spring
-    {64, 12, 32, 48}, // sign
-    {96, 28, 16, 16}, // coin
+    {32, 30, 32, 30}, // spring weak
+    {0, 30, 32, 30}, // spring strong
     {0, 60, 128, 121}, // tree
+    {64, 12, 32, 48}, // sign
+    {96, 28, 16, 16} // coin
   };
   
   LayerObject (int x, int y, int w, int h) {

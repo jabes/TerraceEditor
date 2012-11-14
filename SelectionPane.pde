@@ -19,11 +19,11 @@ public class SelectionPane {
   int tileAlignment;
     
   final int[][] objectThumbnailData = {
-    {0, 30, 32, 30},
-    {32, 30, 32, 30},
-    {64, 12, 32, 48},
-    {112, 44, 16, 16},
-    {171, 193, 60, 60}
+    {32, 30, 32, 30}, // spring weak
+    {0, 30, 32, 30}, // spring strong
+    {171, 193, 60, 60}, // tree
+    {64, 12, 32, 48}, // sign
+    {112, 44, 16, 16} // coin
   };
   
   // sprite x, sprite y, sprite width, sprite height, alignment value
@@ -35,7 +35,7 @@ public class SelectionPane {
     {26, 13, 13, 13, 4}, // middle right
     {0, 26, 13, 13, 7}, // bottom left
     {13, 26, 13, 13, 6}, // bottom middle
-    {26, 26, 13, 13, 5}, // bottom right
+    {26, 26, 13, 13, 5} // bottom right
   };
 
   final PImage[] enemySpriteLegend = {
