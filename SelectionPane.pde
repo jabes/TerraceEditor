@@ -1,4 +1,4 @@
-private class SelectionPane {
+public class SelectionPane {
   
   final int buttonSpacing = 5;
   final int menuContentOffsetTop = 40;
@@ -11,6 +11,7 @@ private class SelectionPane {
   int selectedTab;
   int selectedTile;
   int selectedObject;
+  int selectedEnemy;
   
   int buttonRowCount;
   int buttonCount;
@@ -37,6 +38,15 @@ private class SelectionPane {
     {26, 26, 13, 13, 5}, // bottom right
   };
 
+  final PImage[] enemySpriteLegend = {
+    resources.tileSheetGilliamKnight, 
+    resources.tileSheetKintot
+  };
+  
+  final int[][] enemyThumbnailData = {
+    {0, 0, 45, 56},
+    {0, 0, 27, 32}
+  };
   
   SelectionPane (int x, int y, int w, int h) {
     posX = x;
@@ -53,6 +63,7 @@ private class SelectionPane {
     selectedTab = 0;
     selectedTile = 0;
     selectedObject = 0;
+    selectedEnemy = 0;
   }
   
   void redraw () {
@@ -71,8 +82,8 @@ private class SelectionPane {
     
     if (selectedTab == 0) drawTilePane();
     else if (selectedTab == 1) drawObjectPane();
-    else if (selectedTab == 2) {}
-   
+    else if (selectedTab == 2) drawEnemyPane();
+    
   }
   
   void drawTilePane () {
@@ -116,6 +127,24 @@ private class SelectionPane {
       );
     }
     drawAlignmentPad();
+  }
+  
+  void drawEnemyPane () {
+    drawButton(
+      0, 0, 32, 32, 
+      resources.eraserSprite, 
+      color(220)
+    );
+    for (int i = 0; i < enemyThumbnailData.length; i++) {
+      drawButton(
+        enemyThumbnailData[i][0], 
+        enemyThumbnailData[i][1], 
+        enemyThumbnailData[i][2], 
+        enemyThumbnailData[i][3],
+        enemySpriteLegend[i],
+        color(220)
+      );
+    }
   }
   
   void drawAlignmentPad () {
@@ -238,7 +267,7 @@ private class SelectionPane {
         switch (selectedTab) {
           case 0: selectedTile = i; break;
           case 1: selectedObject = i; break;
-          case 2: break;
+          case 2: selectedEnemy = i; break;
         }
       }
     }
@@ -246,9 +275,10 @@ private class SelectionPane {
     switch (selectedTab) {
       case 0: sel = selectedTile; break;
       case 1: sel = selectedObject; break;
-      case 2: break;
+      case 2: sel = selectedEnemy; break;
     }
     
+    // draw active/hover borders
     if (!dialog.isOpen && !changeMapSizeWindow.isOpen && (sel == i || isMouseOver)) { 
       pushStyle();
       fill(0, 120, 255);

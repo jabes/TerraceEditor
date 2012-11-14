@@ -2,8 +2,8 @@ public class Resources {
 
   final PImage tileSheetBlockLayer;
   final PImage tileSheetObjectLayer;
-  //final PImage tileSheetGilliamKnight;
-  //final PImage tileSheetKintot;
+  final PImage tileSheetGilliamKnight;
+  final PImage tileSheetKintot;
   final PImage playerHeadSprite;
   final PImage eraserSprite;
   final PImage globeIcon;
@@ -16,8 +16,8 @@ public class Resources {
   Resources () {
     tileSheetBlockLayer = loadImage("resources/world-tileset.png");
     tileSheetObjectLayer = loadImage("resources/objects-tileset.gif");
-    //tileSheetGilliamKnight = loadImage("resources/enemy-sprite-gilliam-knight.gif");
-    //tileSheetKintot = loadImage("resources/enemy-sprite-kintot.gif");
+    tileSheetGilliamKnight = loadImage("resources/enemy-sprite-gilliam-knight.gif");
+    tileSheetKintot = loadImage("resources/enemy-sprite-kintot.gif");
     playerHeadSprite = loadImage("resources/player-head.gif");
     eraserSprite = loadImage("resources/eraser.png");
     globeIcon = loadImage("resources/globe.png");

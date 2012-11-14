@@ -8,6 +8,7 @@ private class LayerObject {
   int playerTileX;
   int playerTileY;
   
+  // x, y, w, h
   final int[][] objectLegend = {
     {0, 30, 32, 30}, // strong spring
     {32, 30, 32, 30}, // weak spring

@@ -132,12 +132,21 @@ void exportMap () {
   data = append(data, str(objectsLayer.playerTileX) + globals.inlineDelimiter + str(objectsLayer.playerTileY));
   data = append(data, globals.groupDelimiter + "BLOCKS");
   for (int y = 0; y < blocksLayer.mapData.length; y++) data = append(data, join(nf(blocksLayer.mapData[y], 0), globals.inlineDelimiter));
+  int[] objectData;
   data = append(data, globals.groupDelimiter + "OBJECTS");
-  int[] objectData; 
   for (int i = 0, ii = objects.size(); i < ii; i++) {
-    objectData = (int[]) objects.get(i);
+    objectData = new int[4];
+    arrayCopy((int[])objects.get(i), objectData);
     objectData[3] += 1; // the game engine indexes at 1 not 0
     data = append(data, join(nf(objectData, 0), globals.inlineDelimiter));
+  }
+  int[] enemyData;  
+  data = append(data, globals.groupDelimiter + "ENEMIES");
+  for (int i = 0, ii = enemies.size(); i < ii; i++) {
+    enemyData = new int[3];
+    arrayCopy((int[])enemies.get(i), enemyData);
+    enemyData[2] += 1; // the game engine indexes at 1 not 0
+    data = append(data, join(nf(enemyData, 0), globals.inlineDelimiter));
   }
   saveStrings(fileName, data);
   dialog.showMessage("Map was saved as: " + fileName);
@@ -176,6 +185,7 @@ void importMap (HashMap params) {
           rowData[3] -= 1; // the game engine indexes at 1 not 0
           objects.add(rowData);
         } else if (dataType.equals("ENEMIES")) {
+          rowData[2] -= 1; // the game engine indexes at 1 not 0
           enemies.add(rowData);
         }
         lineCount++;
