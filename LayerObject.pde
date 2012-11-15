@@ -14,7 +14,10 @@ private class LayerObject {
     {0, 30, 32, 30}, // spring strong
     {0, 60, 128, 121}, // tree
     {64, 12, 32, 48}, // sign
-    {96, 28, 16, 16} // coin
+    {96, 28, 16, 16}, // coin
+    {128, 28, 46, 32}, // rock
+    {174, 12, 24, 48}, // bean stock
+    {198, 38, 30, 22} // shrub
   };
   
   LayerObject (int x, int y, int w, int h) {

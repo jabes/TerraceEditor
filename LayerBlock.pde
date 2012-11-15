@@ -30,16 +30,18 @@ private class LayerBlock {
   };
   
   final int[][] mapLegend = {
-    {}, // 0
-    {0, 0}, // 1
-    {60, 0}, // 2
-    {120, 0}, // 3
-    {0, 60}, // 4
-    {60, 60}, // 5
-    {120, 60}, // 6
-    {180, 0}, // 7
-    {180, 60}, // 8
-    {240, 60} // 9
+    {}, // 0 - empty space
+    {0, 0}, // 1 - top left corner
+    {60, 0}, // 2 - top middle
+    {120, 0}, // 3 - top right corner
+    {0, 60}, // 4 - left wall
+    {60, 60}, // 5 - solid ground
+    {120, 60}, // 6 - right wall
+    {180, 0}, // 7 - top shaft
+    {180, 60}, // 8 - shaft
+    {240, 0}, // 9 - overhang right
+    {300, 0}, // 10 - overhang left
+    {240, 60} // 11 - overhang both
   };
   
   LayerBlock (int x, int y, int w, int h) {

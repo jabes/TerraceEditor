@@ -17,14 +17,6 @@ public class SelectionPane {
   int buttonCount;
     
   int tileAlignment;
-    
-  final int[][] objectThumbnailData = {
-    {32, 30, 32, 30}, // spring weak
-    {0, 30, 32, 30}, // spring strong
-    {171, 193, 60, 60}, // tree
-    {64, 12, 32, 48}, // sign
-    {112, 44, 16, 16} // coin
-  };
   
   // sprite x, sprite y, sprite width, sprite height, alignment value
   final int[][] alignmentButtonData = {
@@ -36,16 +28,6 @@ public class SelectionPane {
     {0, 26, 13, 13, 7}, // bottom left
     {13, 26, 13, 13, 6}, // bottom middle
     {26, 26, 13, 13, 5} // bottom right
-  };
-
-  final PImage[] enemySpriteLegend = {
-    resources.tileSheetGilliamKnight, 
-    resources.tileSheetKintot
-  };
-  
-  final int[][] enemyThumbnailData = {
-    {0, 0, 45, 56},
-    {0, 0, 27, 32}
   };
   
   SelectionPane (int x, int y, int w, int h) {
@@ -116,12 +98,13 @@ public class SelectionPane {
       resources.playerHeadSprite, 
       color(220)
     );
-    for (int i = 0; i < objectThumbnailData.length; i++) {
+    for (int i = 0; i < objectsLayer.objectLegend.length; i++) {
       drawButton(
-        objectThumbnailData[i][0], 
-        objectThumbnailData[i][1], 
-        objectThumbnailData[i][2], 
-        objectThumbnailData[i][3],
+        objectsLayer.objectLegend[i][0], 
+        objectsLayer.objectLegend[i][1], 
+        // do not allow sprite dimensions to exceed the bounding button
+        (objectsLayer.objectLegend[i][2] <= 60 ) ? objectsLayer.objectLegend[i][2] : 60, 
+        (objectsLayer.objectLegend[i][3] <= 60 ) ? objectsLayer.objectLegend[i][3] : 60,
         resources.tileSheetObjectLayer,
         color(220)
       );
@@ -135,13 +118,14 @@ public class SelectionPane {
       resources.eraserSprite, 
       color(220)
     );
-    for (int i = 0; i < enemyThumbnailData.length; i++) {
+    for (int i = 0; i < enemyLayer.enemyLegend.length; i++) {
       drawButton(
-        enemyThumbnailData[i][0], 
-        enemyThumbnailData[i][1], 
-        enemyThumbnailData[i][2], 
-        enemyThumbnailData[i][3],
-        enemySpriteLegend[i],
+        enemyLayer.enemyLegend[i][0], 
+        enemyLayer.enemyLegend[i][1], 
+        // do not allow sprite dimensions to exceed the bounding button
+        (enemyLayer.enemyLegend[i][2] <= 60 ) ? enemyLayer.enemyLegend[i][2] : 60, 
+        (enemyLayer.enemyLegend[i][3] <= 60 ) ? enemyLayer.enemyLegend[i][3] : 60, 
+        enemyLayer.spriteLegend[i],
         color(220)
       );
     }
