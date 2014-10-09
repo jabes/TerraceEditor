@@ -153,12 +153,22 @@ void exportMap () {
 }
 
 void requestMapImport () {
-  String[] data = loadStrings(selectInput("Load Map File..."));
-  HashMap args = new HashMap();
-  args.put("mapdata", data);
-  if (data != null) dialog.askQuestion(applet, "Are you sure you want to load a new map?" + globals.EOL + "All un-saved progress will be lost.", "importMap", args);
+  selectInput("Load Map File...", "mapFileSelected");
 }
 
+void mapFileSelected (File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+  } else {
+    String[] data = loadStrings(selection);
+    if (data != null) {
+      HashMap args = new HashMap();
+      args.put("mapdata", data);
+      dialog.askQuestion(applet, "Are you sure you want to load a new map?" + globals.EOL + "All un-saved progress will be lost.", "importMap", args);
+    }
+  }
+}
+  
 void importMap (HashMap params) {
   String[] data = (String[]) params.get("mapdata");
   String dataType = "";
