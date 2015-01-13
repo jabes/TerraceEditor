@@ -1,22 +1,13 @@
-# Auto detect text files and perform LF normalization
 * text=auto
 
-# Custom for Visual Studio
-*.cs     diff=csharp
-*.sln    merge=union
-*.csproj merge=union
-*.vbproj merge=union
-*.fsproj merge=union
-*.dbproj merge=union
+# These files are text and should be normalized (Convert crlf => lf)
+*.pde text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
 
-# Standard to msysgit
-*.doc	 diff=astextplain
-*.DOC	 diff=astextplain
-*.docx diff=astextplain
-*.DOCX diff=astextplain
-*.dot  diff=astextplain
-*.DOT  diff=astextplain
-*.pdf  diff=astextplain
-*.PDF	 diff=astextplain
-*.rtf	 diff=astextplain
-*.RTF	 diff=astextplain
+# These files are binary and should be left untouched
+*.png binary
+*.gif binary
+*.vlw binary
