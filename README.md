@@ -10,7 +10,7 @@ This is just the map editor, the actual game can be found [here](https://github.
 
 ### Screenshots
 
-![Tile Edit](https://raw.github.com/jabes/TerraceEditor/master/screenshots/ss001.png)
-![Object Edit](https://raw.github.com/jabes/TerraceEditor/master/screenshots/ss002.png)
-![Enemy Edit](https://raw.github.com/jabes/TerraceEditor/master/screenshots/ss003.png)
-![Change Map Size](https://raw.github.com/jabes/TerraceEditor/master/screenshots/ss004.png)
+![Tile](screenshots/ss001.png)
+![Object](screenshots/ss002.png)
+![Enemy](screenshots/ss003.png)
+![Map](screenshots/ss004.png)
