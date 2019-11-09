@@ -84,7 +84,8 @@ void setup () {
 
 void draw () {
   
-  applet.background(backgroundImage);
+  applet.background();
+  image(backgroundImage);
   
   mouse.cursor = ARROW; // reset every draw (evaluated in code below)
 

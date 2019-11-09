@@ -39,11 +39,5 @@ public class Resources {
     }
     return tileImage;
   }
-  
-  /*
-  PImage get (PImage img, int x, int y, int w, int h) {
-    return img.get(x, y, w, h);
-  }
-  */
 
 }
