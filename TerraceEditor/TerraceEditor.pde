@@ -41,13 +41,12 @@ int activeMapLayer;
 
 void setup () {
 
-  globals = new Globals();
-  
   applet = this;
-  applet.size(globals.viewportWidth + globals.menuPaneWidth, globals.viewportHeight + globals.viewportScrollbarHeight + globals.fileMenuHeight);
-  applet.noSmooth();
-  applet.noStroke();
-  applet.frame.setTitle("MapEditor v" + globals.version + "+build." + getBuild());
+  globals = new Globals();
+
+  size(globals.viewportWidth + globals.menuPaneWidth, globals.viewportHeight + globals.viewportScrollbarHeight + globals.fileMenuHeight);
+  noSmooth();
+  noStroke();
 
   enemies = new ArrayList();
   objects = new ArrayList();
