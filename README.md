@@ -1,3 +1,5 @@
+![](banner.png)
+
 # Terrace Map Editor
 
 This is the map editor program for the game Terrace.
@@ -10,7 +12,7 @@ This is just the map editor, the actual game can be found [here](https://github.
 
 ### Screenshots
 
-![Tile](screenshots/ss001.png)
-![Object](screenshots/ss002.png)
-![Enemy](screenshots/ss003.png)
-![Map](screenshots/ss004.png)
+![](screenshots/ss001.png)
+![](screenshots/ss002.png)
+![](screenshots/ss003.png)
+![](screenshots/ss004.png)

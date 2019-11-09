@@ -1,3 +1,17 @@
+/* @pjs font="TerraceEditor/resources/fonts/TheSans-Plain-12.vlw"; */
+/* @pjs preload="TerraceEditor/resources/graphics/alignment.gif
+                 TerraceEditor/resources/graphics/bird.png
+                 TerraceEditor/resources/graphics/enemy-sprite-gilliam-knight.gif
+                 TerraceEditor/resources/graphics/enemy-sprite-kintot.gif
+                 TerraceEditor/resources/graphics/eraser.png
+                 TerraceEditor/resources/graphics/globe.png
+                 TerraceEditor/resources/graphics/home.png
+                 TerraceEditor/resources/graphics/objects-tileset.gif
+                 TerraceEditor/resources/graphics/player-head.gif
+                 TerraceEditor/resources/graphics/srubber.gif
+                 TerraceEditor/resources/graphics/viewport-background-tile.gif
+                 TerraceEditor/resources/graphics/world-tileset.png"; */
+
 PApplet applet;
 Globals globals;
 Resources resources;

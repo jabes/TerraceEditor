@@ -11,3 +11,9 @@
 *.png binary
 *.gif binary
 *.vlw binary
+*.ogg binary
+*.wav binary
+
+# Tell linguist to ignore all files, then just look at .pde files
+* linguist-vendored
+*.pde linguist-vendored=false
