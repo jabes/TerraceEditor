@@ -1,4 +1,4 @@
-/* @pjs font="TerraceEditor/resources/fonts/OpenSans-Regular.ttf"; */
+/* @pjs font="TerraceEditor/resources/fonts/Andale-Mono.ttf"; */
 
 /* @pjs preload="TerraceEditor/resources/graphics/alignment.gif,
                  TerraceEditor/resources/graphics/bird.png,
