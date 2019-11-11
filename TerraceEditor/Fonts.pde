@@ -1,6 +1,6 @@
 public class Fonts {
 
-  public PFont OpenSansRegular;
+  public PFont AndaleMono;
   private String fontsPath;
 
   public Fonts () {
@@ -10,6 +10,6 @@ public class Fonts {
       fontsPath = "TerraceEditor/resources/fonts";
     }
 
-    OpenSansRegular = createFont(fontsPath + "/OpenSans-Regular.ttf", 12);
+    AndaleMono      = createFont(fontsPath + "/Andale-Mono.ttf", 12);
   }
 }

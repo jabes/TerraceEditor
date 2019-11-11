@@ -119,7 +119,7 @@ private class FileMenu {
       } else {
         fill(200);
       }
-      textFont(fonts.OpenSansRegular);
+      textFont(fonts.AndaleMono);
       textAlign(CENTER, CENTER);
       text(menuItems[i], buttonX + (buttonWidth / 2), buttonY + (buttonHeight / 2));
       popStyle();
@@ -157,7 +157,7 @@ private class FileMenu {
 
         pushStyle();
         fill(80);
-        textFont(fonts.OpenSansRegular);
+        textFont(fonts.AndaleMono);
         textAlign(LEFT, CENTER);
         text(activeSubMenu[i], submenuButtonX + 8, submenuButtonY + (submenuButtonHeight / 2));
         popStyle();

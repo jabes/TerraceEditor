@@ -47,7 +47,7 @@ abstract class Window {
 
     pushStyle();
     fill(240);
-    textFont(fonts.OpenSansRegular);
+    textFont(fonts.AndaleMono);
     textAlign(LEFT, CENTER);
     text(
       headerText,
@@ -62,7 +62,7 @@ abstract class Window {
   void drawModalBodyText (String bodyText) {
     pushStyle();
     fill(50);
-    textFont(fonts.OpenSansRegular);
+    textFont(fonts.AndaleMono);
     textAlign(LEFT, TOP);
     text(
       bodyText,
@@ -89,7 +89,7 @@ abstract class Window {
 
     pushStyle();
     fill(80);
-    textFont(fonts.OpenSansRegular);
+    textFont(fonts.AndaleMono);
     textAlign(LEFT, CENTER);
     text(label, labelX, labelY, labelW, labelH);
     popStyle();
@@ -114,7 +114,7 @@ abstract class Window {
 
     pushStyle();
     fill(0);
-    textFont(fonts.OpenSansRegular);
+    textFont(fonts.AndaleMono);
     textAlign(LEFT, CENTER);
     text(str(value), fieldX + fieldPadding, fieldY + fieldPadding, fieldW - (fieldPadding * 2), fieldH - (fieldPadding * 2));
     popStyle();
@@ -151,7 +151,7 @@ abstract class Window {
       fill(120, 75, 130);
     }
 
-    textFont(fonts.OpenSansRegular);
+    textFont(fonts.AndaleMono);
     textAlign(CENTER, CENTER);
     text(label, buttonX, buttonY, buttonW, buttonH);
     popStyle();
