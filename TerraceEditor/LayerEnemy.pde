@@ -1,10 +1,8 @@
 private class LayerEnemy {
-  
+
   final int posX;
   final int posY;
-  //final int sizeWidth;
-  //final int sizeHeight;
-  
+
   int tileX;
   int tileY;
   int enemyX;
@@ -14,28 +12,28 @@ private class LayerEnemy {
   int spriteHeight;
   int[] enemyData;
   int[] spriteData;
-  
+
   // x, y, w, h
   final int[][] enemyLegend = {
     {0, 0, 45, 56},
     {0, 0, 27, 32}
   };
-  
+
   final PImage[] spriteLegend = {
-    resources.tileSheetGilliamKnight, 
+    resources.tileSheetGilliamKnight,
     resources.tileSheetKintot
   };
-  
+
   LayerEnemy (int x, int y, int w, int h) {
     posX = x;
     posY = y;
-    //sizeWidth = w;
-    //sizeHeight = h;
   }
-  
+
   void init () {}
-  void reset () { init(); }
-  
+  void reset () {
+    init();
+  }
+
   void iterate () {
     for (int i = 0, ii = enemies.size(); i < ii; i++) {
       // 0 = tileX
@@ -64,14 +62,19 @@ private class LayerEnemy {
       );
     }
   }
-  
+
   int onCoord (int x, int y) {
     int[] obj;
+
     for (int i = 0, ii = enemies.size(); i < ii; i++) {
       obj = (int[]) enemies.get(i);
-      if (obj[0] == x && obj[1] == y) return i;
+
+      if (obj[0] == x && obj[1] == y) {
+        return i;
+      }
     }
+
     return -1;
   }
-  
+
 }

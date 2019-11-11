@@ -1,5 +1,5 @@
 static class Globals {
-  
+
   final String dateCreated = "2012/09";
   final String version = "0.1.0";
   final String groupDelimiter = "#";
@@ -16,5 +16,5 @@ static class Globals {
   final int fileMenuHeight = 30;
   final int menuPaneWidth = 135;
   final int menuPaneHeight = viewportHeight + viewportScrollbarHeight + fileMenuHeight;
- 
+
 }
