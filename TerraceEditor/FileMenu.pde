@@ -113,7 +113,7 @@ private class FileMenu {
       pushStyle();
       if (isMouseOverButton || activeMenuItem == i) fill(40);
       else fill(200);
-      textFont(fonts.TheSans);
+      textFont(fonts.OpenSansRegular);
       textAlign(CENTER, CENTER);
       text(menuItems[i], buttonX + (buttonWidth / 2), buttonY + (buttonHeight / 2));
       popStyle();
@@ -153,7 +153,7 @@ private class FileMenu {
         
         pushStyle();
         fill(80);
-        textFont(fonts.TheSans);
+        textFont(fonts.OpenSansRegular);
         textAlign(LEFT, CENTER);
         text(activeSubMenu[i], submenuButtonX + 8, submenuButtonY + (submenuButtonHeight / 2));
         popStyle();

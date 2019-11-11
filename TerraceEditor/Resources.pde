@@ -12,32 +12,28 @@ public class Resources {
   final PImage alignmentSprite;
   final PImage srubberSprite;
   final PImage viewportBackground;
-  
+
+  private String graphicsPath;
+
   Resources () {
-    tileSheetBlockLayer      = loadImage("TerraceEditor/resources/graphics/world-tileset.png");
-    tileSheetObjectLayer     = loadImage("TerraceEditor/resources/graphics/objects-tileset.gif");
-    tileSheetGilliamKnight   = loadImage("TerraceEditor/resources/graphics/enemy-sprite-gilliam-knight.gif");
-    tileSheetKintot          = loadImage("TerraceEditor/resources/graphics/enemy-sprite-kintot.gif");
-    playerHeadSprite         = loadImage("TerraceEditor/resources/graphics/player-head.gif");
-    eraserSprite             = loadImage("TerraceEditor/resources/graphics/eraser.png");
-    globeIcon                = loadImage("TerraceEditor/resources/graphics/globe.png");
-    homeIcon                 = loadImage("TerraceEditor/resources/graphics/home.png");
-    birdIcon                 = loadImage("TerraceEditor/resources/graphics/bird.png");
-    alignmentSprite          = loadImage("TerraceEditor/resources/graphics/alignment.gif");
-    srubberSprite            = loadImage("TerraceEditor/resources/graphics/srubber.gif");
-    viewportBackground       = loadImage("TerraceEditor/resources/graphics/viewport-background-tile.gif");
-  }
-  
-  PImage tile (int sizeWidth, int sizeHeight, int tileWidth, int tileHeight, PImage imageSrc) {
-    PImage tileImage = createImage(sizeWidth, sizeHeight, RGB);
-    int totalX = ceil(sizeWidth / (float) tileWidth);
-    int totalY = ceil(sizeHeight / (float) tileHeight);
-    for (int y = 0; y < totalY; y++) {
-      for (int x = 0; x < totalX; x++) {
-        tileImage.copy(imageSrc, 0, 0, tileWidth, tileHeight, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-      }
+    try {
+      graphicsPath = sketchPath("resources/graphics");
+    } catch (NoSuchMethodError e) {
+      graphicsPath = "TerraceEditor/resources/graphics";
     }
-    return tileImage;
+
+    tileSheetBlockLayer    = loadImage(graphicsPath + "/world-tileset.png");
+    tileSheetObjectLayer   = loadImage(graphicsPath + "/objects-tileset.gif");
+    tileSheetGilliamKnight = loadImage(graphicsPath + "/enemy-sprite-gilliam-knight.gif");
+    tileSheetKintot        = loadImage(graphicsPath + "/enemy-sprite-kintot.gif");
+    playerHeadSprite       = loadImage(graphicsPath + "/player-head.gif");
+    eraserSprite           = loadImage(graphicsPath + "/eraser.png");
+    globeIcon              = loadImage(graphicsPath + "/globe.png");
+    homeIcon               = loadImage(graphicsPath + "/home.png");
+    birdIcon               = loadImage(graphicsPath + "/bird.png");
+    alignmentSprite        = loadImage(graphicsPath + "/alignment.gif");
+    srubberSprite          = loadImage(graphicsPath + "/srubber.gif");
+    viewportBackground     = loadImage(graphicsPath + "/viewport-background.gif");
   }
 
 }

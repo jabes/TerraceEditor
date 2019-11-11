@@ -1,15 +1,16 @@
-/* @pjs font="TerraceEditor/resources/fonts/TheSans-Plain-12.vlw"; */
-/* @pjs preload="TerraceEditor/resources/graphics/alignment.gif
-                 TerraceEditor/resources/graphics/bird.png
-                 TerraceEditor/resources/graphics/enemy-sprite-gilliam-knight.gif
-                 TerraceEditor/resources/graphics/enemy-sprite-kintot.gif
-                 TerraceEditor/resources/graphics/eraser.png
-                 TerraceEditor/resources/graphics/globe.png
-                 TerraceEditor/resources/graphics/home.png
-                 TerraceEditor/resources/graphics/objects-tileset.gif
-                 TerraceEditor/resources/graphics/player-head.gif
-                 TerraceEditor/resources/graphics/srubber.gif
-                 TerraceEditor/resources/graphics/viewport-background-tile.gif
+/* @pjs font="TerraceEditor/resources/fonts/OpenSans-Regular.ttf"; */
+
+/* @pjs preload="TerraceEditor/resources/graphics/alignment.gif,
+                 TerraceEditor/resources/graphics/bird.png,
+                 TerraceEditor/resources/graphics/enemy-sprite-gilliam-knight.gif,
+                 TerraceEditor/resources/graphics/enemy-sprite-kintot.gif,
+                 TerraceEditor/resources/graphics/eraser.png,
+                 TerraceEditor/resources/graphics/globe.png,
+                 TerraceEditor/resources/graphics/home.png,
+                 TerraceEditor/resources/graphics/objects-tileset.gif,
+                 TerraceEditor/resources/graphics/player-head.gif,
+                 TerraceEditor/resources/graphics/srubber.gif,
+                 TerraceEditor/resources/graphics/viewport-background.gif,
                  TerraceEditor/resources/graphics/world-tileset.png"; */
 
 PApplet applet;
@@ -42,9 +43,14 @@ int activeMapLayer;
 void setup () {
 
   applet = this;
-  globals = new Globals();
 
-  size(globals.viewportWidth + globals.menuPaneWidth, globals.viewportHeight + globals.viewportScrollbarHeight + globals.fileMenuHeight);
+  frameRate(15);
+  size(735, 650);
+  // size(
+  //   globals.viewportWidth + globals.menuPaneWidth,
+  //   globals.viewportHeight + globals.viewportScrollbarHeight + globals.fileMenuHeight
+  // );
+
   noSmooth();
   noStroke();
 
@@ -54,6 +60,7 @@ void setup () {
   activeMapLayer = 0;
   viewportScrubOffsetLeft = 0;
   
+  globals = new Globals();
   resources = new Resources();
   fonts = new Fonts();
   mouse = new Mouse();
@@ -73,20 +80,15 @@ void setup () {
   objectsLayer.init();
   enemyLayer.init();
   changeMapSizeWindow.init();
-  
-  backgroundImage = resources.tile(applet.width, applet.height, 40, 40, resources.viewportBackground);
-  
-  viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);  
 
+  viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);
   fileMenu.activate();
-  
 }
 
 void draw () {
-  
-  applet.background();
-  image(backgroundImage);
-  
+  applet.background(0);
+  image(resources.viewportBackground, 0, globals.fileMenuHeight, globals.viewportWidth, globals.viewportHeight);
+
   mouse.cursor = ARROW; // reset every draw (evaluated in code below)
 
   if (
@@ -233,4 +235,3 @@ String getBuild () {
   }
   return nf(totalMonths, 2) + nf(day(), 2);
 }
-

@@ -1,9 +1,15 @@
 public class Fonts {
-  
-  public PFont TheSans;
-  
-  public Fonts () {
-    TheSans = loadFont("TerraceEditor/resources/fonts/TheSans-Plain-12.vlw");
-  }
 
+  public PFont OpenSansRegular;
+  private String fontsPath;
+
+  public Fonts () {
+    try {
+      fontsPath = sketchPath("resources/fonts");
+    } catch (NoSuchMethodError e) {
+      fontsPath = "TerraceEditor/resources/fonts";
+    }
+
+    OpenSansRegular = createFont(fontsPath + "/OpenSans-Regular.ttf", 12);
+  }
 }

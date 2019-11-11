@@ -48,7 +48,7 @@ abstract class Window {
     
     pushStyle();
     fill(240);
-    textFont(fonts.TheSans);
+    textFont(fonts.OpenSansRegular);
     textAlign(LEFT, CENTER);
     text(
       headerText,
@@ -65,7 +65,7 @@ abstract class Window {
     
     pushStyle();
     fill(50);
-    textFont(fonts.TheSans);
+    textFont(fonts.OpenSansRegular);
     textAlign(LEFT, TOP);
     text(
       bodyText,
@@ -97,7 +97,7 @@ abstract class Window {
     
     pushStyle();
     fill(80);
-    textFont(fonts.TheSans);
+    textFont(fonts.OpenSansRegular);
     textAlign(LEFT, CENTER);
     text(label, labelX, labelY, labelW, labelH);
     popStyle();
@@ -114,7 +114,7 @@ abstract class Window {
     
     pushStyle();
     fill(0);
-    textFont(fonts.TheSans);
+    textFont(fonts.OpenSansRegular);
     textAlign(LEFT, CENTER);
     text(str(value), fieldX + fieldPadding, fieldY + fieldPadding, fieldW - (fieldPadding * 2), fieldH - (fieldPadding * 2));
     popStyle();
@@ -145,7 +145,7 @@ abstract class Window {
     pushStyle();
     if (isMouseOverButton) fill(80, 45, 90);
     else fill(120, 75, 130);
-    textFont(fonts.TheSans);
+    textFont(fonts.OpenSansRegular);
     textAlign(CENTER, CENTER);
     text(label, buttonX, buttonY, buttonW, buttonH);
     popStyle();
