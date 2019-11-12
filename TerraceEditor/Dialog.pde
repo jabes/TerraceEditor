@@ -40,16 +40,16 @@ private class Dialog extends Window {
         super.drawModalBox("Editor Message");
         super.drawModalBodyText(message);
 
-        if (super.drawModalButton("Okay, close dialog") && mouse.wasClicked) {
+        if (super.drawModalButton("Okay") && mouse.wasClicked) {
           destroy();
         }
       } else if (question != null) {
         super.drawModalBox("Editor Confirmation");
         super.drawModalBodyText(question);
 
-        if (super.drawModalButton("No, please stop!") == true && mouse.wasClicked) {
+        if (super.drawModalButton("No!") == true && mouse.wasClicked) {
           destroy();
-        } else if (super.drawModalButton("Yes, carry on") == true && mouse.wasClicked) {
+        } else if (super.drawModalButton("Yes") == true && mouse.wasClicked) {
           try {
             methodRequest = classObject.getClass().getMethod(callbackMethod, new Class[] {HashMap.class});
             methodRequest.invoke(classObject, callbackMethodArgs);

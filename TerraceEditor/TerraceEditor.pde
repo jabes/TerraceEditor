@@ -192,7 +192,7 @@ void mapFileSelected (File selection) {
     if (data != null) {
       HashMap args = new HashMap();
       args.put("mapdata", data);
-      dialog.askQuestion(applet, "Are you sure you want to load a new map?" + globals.EOL + "All un-saved progress will be lost.", "importMap", args);
+      dialog.askQuestion(applet, "Are you sure you want to load a new map? All un-saved progress will be lost.", "importMap", args);
     }
   }
 }
