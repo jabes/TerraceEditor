@@ -32,41 +32,28 @@ public class Keyboard {
   }
 
   void pressed (int code) {
-    if (code == UP) {
-      keyUp = true;
-    } else if (code == DOWN) {
-      keyDown = true;
-    } else if (code == LEFT) {
-      keyLeft = true;
-    } else if (code == RIGHT) {
-      keyRight = true;
-    } else if (code == CONTROL) {
-      keyControl = true;
-    } else if (code == DELETE) {
-      keyDel = true;
-    } else if (code == BACKSPACE) {
-      keyBack = true;
-    }
-
     wasPressed = true;
     currentKeyCode = code;
+    switch (code) {
+      case LEFT: keyLeft = true; break;
+      case UP: keyUp = true; break;
+      case RIGHT: keyRight = true; break;
+      case DOWN: keyDown = true; break;
+      case CONTROL: keyControl = true; break;
+      case DELETE: keyDel = true; break;
+      case BACKSPACE: keyBack = true; break;
+    }
   }
 
   void released (int code) {
-    if (code == UP) {
-      keyUp = false;
-    } else if (code == DOWN) {
-      keyDown = false;
-    } else if (code == LEFT) {
-      keyLeft = false;
-    } else if (code == RIGHT) {
-      keyRight = false;
-    } else if (code == CONTROL) {
-      keyControl = false;
-    } else if (code == DELETE) {
-      keyDel = false;
-    } else if (code == BACKSPACE) {
-      keyBack = false;
+    switch (code) {
+      case LEFT: keyLeft = false; break;
+      case UP: keyUp = false; break;
+      case RIGHT: keyRight = false; break;
+      case DOWN: keyDown = false; break;
+      case CONTROL: keyControl = false; break;
+      case DELETE: keyDel = false; break;
+      case BACKSPACE: keyBack = false; break;
     }
   }
 

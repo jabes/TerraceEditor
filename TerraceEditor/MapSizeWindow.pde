@@ -40,7 +40,7 @@ private class MapSizeWindow extends Window {
 
       if (keyboard.wasPressed && value >= 0) {
         if (keyboard.keyDel || keyboard.keyBack) {
-          value = value / 10;
+          value = (int) (value / 10);
         } else if (value < maxCharLength) {
           switch (keyboard.currentKeyCode) {
             case 48: case 96: value = value * 10 + 0; break;
