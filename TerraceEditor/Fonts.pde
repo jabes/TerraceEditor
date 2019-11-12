@@ -1,15 +1,16 @@
 public class Fonts {
 
-  public PFont AndaleMono;
+  public PFont VcrOsdMono;
+
   private String fontsPath;
 
   public Fonts () {
     try {
       fontsPath = sketchPath("resources/fonts");
     } catch (NoSuchMethodError e) {
-      fontsPath = "TerraceEditor/resources/fonts";
+      fontsPath = "Terrace/resources/fonts";
     }
 
-    AndaleMono = createFont(fontsPath + "/Andale-Mono.ttf", 12);
+    VcrOsdMono = createFont(fontsPath + "/VCR-OSD-Mono.ttf", 13);
   }
 }

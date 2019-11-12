@@ -46,7 +46,7 @@ abstract class Window {
 
     pushStyle();
     fill(240);
-    textFont(fonts.AndaleMono);
+    textFont(fonts.VcrOsdMono);
     textAlign(LEFT, CENTER);
     text(
       headerText,
@@ -61,7 +61,7 @@ abstract class Window {
   void drawModalBodyText (String bodyText) {
     pushStyle();
     fill(50);
-    textFont(fonts.AndaleMono);
+    textFont(fonts.VcrOsdMono);
     textAlign(LEFT, TOP);
     text(
       bodyText,
@@ -74,13 +74,11 @@ abstract class Window {
   }
 
   boolean drawNumberField (int width, String label, int value, boolean hasFocus) {
-
     final int fieldPadding = 5;
     final int fieldW = width + (fieldPadding * 2);
     final int fieldH = 18 + (fieldPadding * 2);
     final int fieldX = windowX + windowWidth - windowPadding - fieldW;
     final int fieldY = windowY + windowPadding + numberFieldOffsetTop;
-
     final int labelW = windowWidth - (windowPadding * 2) - fieldW;
     final int labelH = fieldH;
     final int labelX = windowX + windowPadding;
@@ -91,7 +89,7 @@ abstract class Window {
 
     pushStyle();
     fill(80);
-    textFont(fonts.AndaleMono);
+    textFont(fonts.VcrOsdMono);
     textAlign(LEFT, CENTER);
     text(label, labelX, labelY, labelW, labelH);
     popStyle();
@@ -104,7 +102,7 @@ abstract class Window {
 
     pushStyle();
     fill(0);
-    textFont(fonts.AndaleMono);
+    textFont(fonts.VcrOsdMono);
     textAlign(LEFT, CENTER);
     text(str(value), fieldX + fieldPadding, fieldY + fieldPadding, fieldW - (fieldPadding * 2), fieldH - (fieldPadding * 2));
     popStyle();
@@ -117,38 +115,30 @@ abstract class Window {
   }
 
   boolean drawModalButton (String label) {
-    final int buttonW = (int) textWidth(label) + 25;
+    textFont(fonts.VcrOsdMono);
+    textAlign(CENTER, CENTER);
+
+    final int buttonW = (int) textWidth(label) + 20;
     final int buttonH = 30;
     final int buttonX = windowX + windowWidth - buttonW - windowPadding - buttonOffsetRight;
     final int buttonY = windowY + windowHeight - buttonH - windowPadding;
 
-    buttonOffsetRight += (buttonW + windowPadding);
     boolean isMouseOverButton = mouse.overRect(buttonX, buttonY, buttonW, buttonH);
+    buttonOffsetRight += (buttonW + windowPadding);
 
     pushStyle();
-
-    if (isMouseOverButton) {
-      fill(215, 125, 250);
-      mouse.cursor = HAND;
-    } else {
-      fill(230, 165, 255);
-    }
-
+    fill(isMouseOverButton ? 215 : 230, isMouseOverButton ? 125 : 165, isMouseOverButton ? 250 : 255);
     rect(buttonX, buttonY, buttonW, buttonH);
     popStyle();
 
     pushStyle();
-
-    if (isMouseOverButton) {
-      fill(80, 45, 90);
-    } else {
-      fill(120, 75, 130);
-    }
-
-    textFont(fonts.AndaleMono);
-    textAlign(CENTER, CENTER);
+    fill(isMouseOverButton ? 80 : 120, isMouseOverButton ? 45 : 75, isMouseOverButton ? 90 : 130);
     text(label, buttonX, buttonY, buttonW, buttonH);
     popStyle();
+
+    if (isMouseOverButton) {
+      mouse.cursor = HAND;
+    }
 
     return isMouseOverButton;
   }

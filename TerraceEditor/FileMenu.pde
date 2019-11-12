@@ -82,6 +82,11 @@ private class FileMenu {
     }
   }
 
+  private int getButtonWidth (String menuItemText) {
+    textFont(fonts.VcrOsdMono);
+    return (int) textWidth(menuItemText) + 20;
+  }
+
   private void drawMenu () {
     // initial placement which is incremented for each button
     int menuButtonX = posX + menuButtonPadding;
@@ -90,22 +95,15 @@ private class FileMenu {
     drawMenuBackground();
 
     for (int menuButtonIndex = 0; menuButtonIndex < menuItems.length; menuButtonIndex++) {
-      menuButtonWidth = (int) textWidth(menuItems[menuButtonIndex]) + 20;
+      menuButtonWidth = getButtonWidth(menuItems[menuButtonIndex]);
       boolean isMouseOverButton = isActive && mouse.overRect(menuButtonX, menuButtonY, menuButtonWidth, menuButtonHeight);
-
+      // create menu button
       drawMenuButton(menuButtonIndex, menuButtonX, menuButtonY, isMouseOverButton);
       executeMenuButtonActions(menuButtonIndex, isMouseOverButton);
-
-      if (isMouseOverButton) {
-        mouse.cursor = HAND;
-        isMouseOverMenu = true;
-      }
-
       // use the current active menu button to determine the sub menu offset
       if (activeMenuItem == menuButtonIndex) {
         subMenuOffsetLeft = menuButtonX - subMenuButtonPadding;
       }
-
       // update at bottom of loop so as affect the next iteration
       menuButtonX += menuButtonPadding + menuButtonWidth;
     }
@@ -135,18 +133,22 @@ private class FileMenu {
     // draw button text
     pushStyle();
     fill(isMenuButtonActive ? 40 : 200);
-    textFont(fonts.AndaleMono);
+    textFont(fonts.VcrOsdMono);
     textAlign(CENTER, CENTER);
     text(menuItems[menuButtonIndex], menuButtonX + (menuButtonWidth / 2), menuButtonY + (menuButtonHeight / 2));
     popStyle();
   }
 
   private void executeMenuButtonActions (int menuButtonIndex, boolean isMouseOverButton) {
-    if (isMouseOverButton && mouse.wasClicked) {
-      activeMenuItem = menuButtonIndex;
-      switch (menuButtonIndex) {
-        case 0: subMenuItems = subMenuFile; break;
-        case 1: subMenuItems = subMenuOptions; break;
+    if (isMouseOverButton) {
+      mouse.cursor = HAND;
+      isMouseOverMenu = true;
+      if (mouse.wasClicked) {
+        activeMenuItem = menuButtonIndex;
+        switch (menuButtonIndex) {
+          case 0: subMenuItems = subMenuFile; break;
+          case 1: subMenuItems = subMenuOptions; break;
+        }
       }
     }
   }
@@ -160,16 +162,9 @@ private class FileMenu {
       int subMenuButtonX = subMenuOffsetLeft + subMenuButtonPadding;
       int subMenuButtonY = subMenuOffsetTop + subMenuButtonPadding + ((subMenuButtonHeight + subMenuButtonPadding) * subMenuButtonIndex);
       boolean isMouseOverButton = mouse.overRect(subMenuButtonX, subMenuButtonY, subMenuButtonWidth, subMenuButtonHeight);
-
       drawSubMenuButton(subMenuButtonIndex, subMenuButtonX, subMenuButtonY, isMouseOverButton);
       executeSubMenuButtonActions(subMenuButtonIndex, isMouseOverButton);
-
       subMenuButtonIndex++;
-
-      if (isMouseOverButton) {
-        mouse.cursor = HAND;
-        isMouseOverMenu = true;
-      }
     }
   }
 
@@ -197,27 +192,31 @@ private class FileMenu {
     // draw button text
     pushStyle();
     fill(isMouseOverButton ? 80 : 60);
-    textFont(fonts.AndaleMono);
+    textFont(fonts.VcrOsdMono);
     textAlign(LEFT, CENTER);
     text(subMenuItems[subMenuButtonIndex], subMenuButtonX + 8, subMenuButtonY + (subMenuButtonHeight / 2));
     popStyle();
   }
 
   private void executeSubMenuButtonActions (int subMenuButtonIndex, boolean isMouseOverButton) {
-    if (isMouseOverButton && mouse.wasClicked) {
-      switch (activeMenuItem) {
-        case 0:
-          switch (subMenuButtonIndex) {
-            case 0: reset(); exportMap(); break;
-            case 1: reset(); requestMapImport(); break;
-            case 2: exit(); break;
-          }
-          break;
-        case 1:
-          switch (subMenuButtonIndex) {
-            case 0: changeMapSizeWindow.show(); break;
-          }
-          break;
+    if (isMouseOverButton) {
+      mouse.cursor = HAND;
+      isMouseOverMenu = true;
+      if (mouse.wasClicked) {
+        switch (activeMenuItem) {
+          case 0:
+            switch (subMenuButtonIndex) {
+              case 0: reset(); exportMap(); break;
+              case 1: reset(); requestMapImport(); break;
+              case 2: exit(); break;
+            }
+            break;
+          case 1:
+            switch (subMenuButtonIndex) {
+              case 0: changeMapSizeWindow.show(); break;
+            }
+            break;
+        }
       }
     }
   }
