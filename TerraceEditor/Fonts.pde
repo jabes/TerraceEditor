@@ -8,7 +8,7 @@ public class Fonts {
     try {
       fontsPath = sketchPath("resources/fonts");
     } catch (NoSuchMethodError e) {
-      fontsPath = "Terrace/resources/fonts";
+      fontsPath = "TerraceEditor/resources/fonts";
     }
 
     VcrOsdMono = createFont(fontsPath + "/VCR-OSD-Mono.ttf", 13);
