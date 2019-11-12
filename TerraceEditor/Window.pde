@@ -1,11 +1,10 @@
 abstract class Window {
 
-  final int boxPadding;
-
-  final int sizeWidth;
-  final int sizeHeight;
-  final int posX;
-  final int posY;
+  final int windowX;
+  final int windowY;
+  final int windowWidth;
+  final int windowHeight;
+  final int windowPadding;
 
   final int headerX;
   final int headerY;
@@ -18,14 +17,14 @@ abstract class Window {
   boolean isOpen;
 
   Window (int w, int h) {
-    boxPadding = 10;
-    sizeWidth = w;
-    sizeHeight = h;
-    posX = (applet.width / 2) - (sizeWidth / 2);
-    posY = (applet.height / 2) - (sizeHeight / 2);
-    headerX = posX;
-    headerY = posY;
-    headerWidth = sizeWidth;
+    windowWidth = w;
+    windowHeight = h;
+    windowX = (applet.width / 2) - (windowWidth / 2);
+    windowY = (applet.height / 2) - (windowHeight / 2);
+    windowPadding = 10;
+    headerX = windowX;
+    headerY = windowY;
+    headerWidth = windowWidth;
     headerHeight = 30;
   }
 
@@ -37,7 +36,7 @@ abstract class Window {
 
     pushStyle();
     fill(255);
-    rect(posX, posY, sizeWidth, sizeHeight);
+    rect(windowX, windowY, windowWidth, windowHeight);
     popStyle();
 
     pushStyle();
@@ -51,7 +50,7 @@ abstract class Window {
     textAlign(LEFT, CENTER);
     text(
       headerText,
-      headerX + boxPadding,
+      headerX + windowPadding,
       headerY,
       headerWidth,
       headerHeight
@@ -66,26 +65,29 @@ abstract class Window {
     textAlign(LEFT, TOP);
     text(
       bodyText,
-      posX + boxPadding,
-      posY + boxPadding + headerHeight,
-      sizeWidth - (boxPadding * 2),
-      sizeHeight - (boxPadding * 2)
+      windowX + windowPadding,
+      windowY + windowPadding + headerHeight,
+      windowWidth - (windowPadding * 2),
+      windowHeight - (windowPadding * 2)
     );
     popStyle();
   }
 
-  boolean drawNumberField (int w, String label, int value, boolean hasFocus) {
-    final int labelX = posX + boxPadding;
-    final int labelY = posY + boxPadding + numberFieldOffsetTop;
-    final int labelW = (int) textWidth(label);
-    final int labelH = 24;
+  boolean drawNumberField (int width, String label, int value, boolean hasFocus) {
+
     final int fieldPadding = 5;
-    final int fieldX = posX + boxPadding + labelW + 5;
-    final int fieldY = labelY;
-    final int fieldW = w + (fieldPadding * 2);
+    final int fieldW = width + (fieldPadding * 2);
     final int fieldH = 18 + (fieldPadding * 2);
+    final int fieldX = windowX + windowWidth - windowPadding - fieldW;
+    final int fieldY = windowY + windowPadding + numberFieldOffsetTop;
+
+    final int labelW = windowWidth - (windowPadding * 2) - fieldW;
+    final int labelH = fieldH;
+    final int labelX = windowX + windowPadding;
+    final int labelY = fieldY;
+
     boolean isMouseOverField = mouse.overRect(fieldX, fieldY, fieldW, fieldH);
-    numberFieldOffsetTop += (fieldH + boxPadding);
+    numberFieldOffsetTop += (fieldH + windowPadding);
 
     pushStyle();
     fill(80);
@@ -95,20 +97,8 @@ abstract class Window {
     popStyle();
 
     pushStyle();
-
-    if (isMouseOverField) {
-      fill(220);
-      mouse.cursor = HAND;
-    } else {
-      fill(200);
-    }
-
-    if (hasFocus) {
-      stroke(230, 100, 0);
-    } else {
-      stroke(180);
-    }
-
+    fill(isMouseOverField ? 220 : 200);
+    stroke(hasFocus ? 230 : 180, hasFocus ? 100 : 180, hasFocus ? 0 : 180);
     rect(fieldX, fieldY, fieldW, fieldH);
     popStyle();
 
@@ -119,16 +109,20 @@ abstract class Window {
     text(str(value), fieldX + fieldPadding, fieldY + fieldPadding, fieldW - (fieldPadding * 2), fieldH - (fieldPadding * 2));
     popStyle();
 
+    if (isMouseOverField) {
+      mouse.cursor = HAND;
+    }
+
     return isMouseOverField;
   }
 
   boolean drawModalButton (String label) {
     final int buttonW = (int) textWidth(label) + 25;
     final int buttonH = 30;
-    final int buttonX = posX + sizeWidth - buttonW - boxPadding - buttonOffsetRight;
-    final int buttonY = posY + sizeHeight - buttonH - boxPadding;
+    final int buttonX = windowX + windowWidth - buttonW - windowPadding - buttonOffsetRight;
+    final int buttonY = windowY + windowHeight - buttonH - windowPadding;
 
-    buttonOffsetRight += (buttonW + boxPadding);
+    buttonOffsetRight += (buttonW + windowPadding);
     boolean isMouseOverButton = mouse.overRect(buttonX, buttonY, buttonW, buttonH);
 
     pushStyle();

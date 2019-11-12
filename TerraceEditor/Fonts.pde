@@ -10,6 +10,6 @@ public class Fonts {
       fontsPath = "TerraceEditor/resources/fonts";
     }
 
-    AndaleMono      = createFont(fontsPath + "/Andale-Mono.ttf", 12);
+    AndaleMono = createFont(fontsPath + "/Andale-Mono.ttf", 12);
   }
 }

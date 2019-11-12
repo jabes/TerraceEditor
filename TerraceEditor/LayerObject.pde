@@ -54,6 +54,7 @@ private class LayerObject {
       tileY = objectData[1];
       objectAlignment = objectData[2];
       objectType = objectData[3];
+
       // 0 = spriteX
       // 1 = spriteY
       // 2 = spriteWidth
@@ -135,10 +136,7 @@ private class LayerObject {
 
     for (int i = 0, ii = objects.size(); i < ii; i++) {
       obj = (int[]) objects.get(i);
-
-      if (obj[0] == x && obj[1] == y) {
-        return i;
-      }
+      if (obj[0] == x && obj[1] == y) return i;
     }
 
     return -1;

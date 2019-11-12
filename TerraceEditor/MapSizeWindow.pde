@@ -4,6 +4,9 @@ private class MapSizeWindow extends Window {
   int newTotalTilesY;
   int inputFocus;
 
+  // do not allow the int to exceed 9 digits
+  int maxCharLength = 100000000;
+
   MapSizeWindow (int w, int h) {
     super(w, h);
   }
@@ -38,27 +41,18 @@ private class MapSizeWindow extends Window {
       if (keyboard.wasPressed && value >= 0) {
         if (keyboard.keyDel || keyboard.keyBack) {
           value = value / 10;
-        } else if (
-          Character.isDigit(keyboard.currentKeyCode)
-          && value < 100000000 // do not allow the int to exceed 9 digits
-        ) {
-          value = value * 10 + Character.getNumericValue(keyboard.currentKeyCode);
-        } else if (
-          keyboard.currentKeyCode >= 96
-          && keyboard.currentKeyCode <= 105
-          && value < 100000000 // do not allow the int to exceed 9 digits
-        ) {
+        } else if (value < maxCharLength) {
           switch (keyboard.currentKeyCode) {
-            case 96: value = value * 10 + 0; break;
-            case 97: value = value * 10 + 1; break;
-            case 98: value = value * 10 + 2; break;
-            case 99: value = value * 10 + 3; break;
-            case 100: value = value * 10 + 4; break;
-            case 101: value = value * 10 + 5; break;
-            case 102: value = value * 10 + 6; break;
-            case 103: value = value * 10 + 7; break;
-            case 104: value = value * 10 + 8; break;
-            case 105: value = value * 10 + 9; break;
+            case 48: case 96: value = value * 10 + 0; break;
+            case 49: case 97: value = value * 10 + 1; break;
+            case 50: case 98: value = value * 10 + 2; break;
+            case 51: case 99: value = value * 10 + 3; break;
+            case 52: case 100: value = value * 10 + 4; break;
+            case 53: case 101: value = value * 10 + 5; break;
+            case 54: case 102: value = value * 10 + 6; break;
+            case 55: case 103: value = value * 10 + 7; break;
+            case 56: case 104: value = value * 10 + 8; break;
+            case 57: case 105: value = value * 10 + 9; break;
           }
         }
 
@@ -68,12 +62,12 @@ private class MapSizeWindow extends Window {
         }
       }
 
-      if (super.drawNumberField(200, "# of tiles X: ", newTotalTilesX, (inputFocus == 1)) && mouse.wasClicked) {
+      if (super.drawNumberField(220, "Tiles X:", newTotalTilesX, (inputFocus == 1)) && mouse.wasClicked) {
         inputFocus = 1;
         newTotalTilesX = 0;
       }
 
-      if (super.drawNumberField(200, "# of tiles Y: ", newTotalTilesY, (inputFocus == 2)) && mouse.wasClicked) {
+      if (super.drawNumberField(220, "Tiles Y:", newTotalTilesY, (inputFocus == 2)) && mouse.wasClicked) {
         inputFocus = 2;
         newTotalTilesY = 0;
       }

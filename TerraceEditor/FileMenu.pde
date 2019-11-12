@@ -52,7 +52,6 @@ private class FileMenu {
   }
 
   public void reset () {
-    println("reset");
     init();
   }
 
