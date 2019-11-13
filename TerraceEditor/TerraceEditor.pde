@@ -42,6 +42,7 @@ int activeMapLayer;
 
 void setup () {
   applet = this;
+
   frameRate(15);
   size(735, 650);
   noSmooth();
@@ -92,25 +93,26 @@ void draw () {
   applet.translate(viewportScrubOffsetLeft, 0);
 
   if (activeMapLayer != 0) {
-    applet.tint(255, getAlpha(0.35));
+    applet.tint(255, 100);
   }
 
   blocksLayer.iterate();
   applet.noTint();
 
   if (activeMapLayer != 1) {
-    applet.tint(255, getAlpha(0.35));
+    applet.tint(255, 100);
   }
 
   objectsLayer.iterate();
   applet.noTint();
 
   if (activeMapLayer != 2) {
-    applet.tint(255, getAlpha(0.35));
+    applet.tint(255, 100);
   }
 
   enemyLayer.iterate();
   applet.noTint();
+
   applet.translate(-viewportScrubOffsetLeft, 0);
   selectionPane.iterate();
   viewportScroller.iterate();
@@ -242,10 +244,6 @@ void importMap (HashMap params) {
     viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);
     dialog.showMessage("Map was successfully loaded.");
   }
-}
-
-static float getAlpha (float i) {
-  return i * 255;
 }
 
 String getTimestamp () {

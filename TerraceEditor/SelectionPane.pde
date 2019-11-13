@@ -51,8 +51,10 @@ public class SelectionPane {
     fill(255);
     rect(posX, posY, sizeWidth, sizeHeight);
     popStyle();
+
     buttonRowCount = 0;
     buttonCount = 0;
+
     drawTab(0, resources.globeIcon);
     drawTab(1, resources.homeIcon);
     drawTab(2, resources.birdIcon);

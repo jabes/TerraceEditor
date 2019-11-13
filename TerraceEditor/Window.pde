@@ -30,7 +30,7 @@ abstract class Window {
 
   void drawModalBox (String headerText) {
     pushStyle();
-    fill(0, getAlpha(0.75));
+    fill(0, 200);
     rect(0, 0, applet.width, applet.height);
     popStyle();
 
