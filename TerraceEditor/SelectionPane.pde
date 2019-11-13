@@ -190,8 +190,9 @@ public class SelectionPane {
       popStyle();
     }
 
+    PImage sprite = (w == gfx.width && h == gfx.height) ? gfx : getImageSlice(gfx, x, y, w, h);
     image(
-      gfx.get(x, y, w, h),
+      sprite,
       tileX + (blocksLayer.tileWidth / 2) - (w / 2),
       tileY + (blocksLayer.tileHeight / 2) - (h / 2),
       w,

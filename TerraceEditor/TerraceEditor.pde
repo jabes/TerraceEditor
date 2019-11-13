@@ -262,3 +262,27 @@ String getBuild () {
 
   return nf(totalMonths, 2) + nf(day(), 2);
 }
+
+PImage getImageSlice (PImage srcImage, int spriteX, int spriteY, int spriteW, int spriteH) {
+  int p1 = 0;
+  int p2 = 0;
+  boolean grabX = false;
+  boolean grabY = false;
+  PImage img = createImage(spriteW, spriteH, RGB);
+  img.loadPixels();
+  for (int h = 0; h < srcImage.height; h++) {
+    if (h >= spriteY && h < spriteY + spriteH) grabY = true;
+    for (int w = 0; w < srcImage.width; w++) {
+      if (w >= spriteX && w < spriteX + spriteW) grabX = true;
+      if (grabX && grabY) {
+        img.pixels[p1] = srcImage.pixels[p2];
+        p1++;
+      }
+      p2++;
+      grabX = false;
+    }
+    grabY = false;
+  }
+  img.updatePixels();
+  return img;
+}
