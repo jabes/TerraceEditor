@@ -68,93 +68,30 @@ private class LayerBlock {
         int tileType = mapData[y][x];
         int tileX = posX + (x * tileWidth);
         int tileY = posY + (y * tileHeight);
-
-        if (tileType > 0) {
-          PImage tileImage = getImageSlice(
-            resources.tileSheetBlockLayer,
-            mapLegend[tileType][0],
-            mapLegend[tileType][1],
-            tileWidth,
-            tileHeight
-          );
-          image(
-            tileImage,
-            tileX,
-            tileY,
-            tileWidth,
-            tileHeight
-          );
-        }
-
-        if (
-          !viewportScroller.isScrubbing
-          && !fileMenu.hasActiveMenuItem()
-          && !dialog.isOpen
-          && !changeMapSizeWindow.isOpen
-          && mouse.overRect(tileX + floor(viewportScrubOffsetLeft), tileY, tileWidth, tileHeight)
-        ) {
-          pushStyle();
-          fill(0, 120, 255, 128);
-          rect(tileX, tileY, tileWidth, tileHeight);
-          popStyle();
-
-          // REMINDER: move this somewhere more semantically correct?
-          if (
-            mouse.wasClicked
-            && mouseX < globals.viewportWidth // prevent block placement when user has clicked outside the viewport area (such as the menu pane)
-          ) {
-            switch (activeMapLayer) {
-              case 0:
-                blocksLayer.mapData[y][x] = selectionPane.selectedTile;
-                break;
-
-              case 1:
-                if (selectionPane.selectedObject == 0) {
-                  int n = objectsLayer.onCoord(x, y);
-
-                  if (n >= 0) {
-                    objects.remove(n);
-                  }
-                } else if (selectionPane.selectedObject == 1) {
-                  objectsLayer.playerTileX = x;
-                  objectsLayer.playerTileY = y;
-                } else {
-                  int n = objectsLayer.onCoord(x, y);
-
-                  if (n >= 0) {
-                    objects.remove(n);
-                  }
-
-                  int[] a = {x, y, selectionPane.tileAlignment, selectionPane.selectedObject - 2}; // subtract 2 because the first 2 menu items are not technically interactive objects
-                  objects.add(a);
-                }
-
-                break;
-
-              case 2:
-                if (selectionPane.selectedEnemy == 0) {
-                  int n = enemyLayer.onCoord(x, y);
-
-                  if (n >= 0) {
-                    enemies.remove(n);
-                  }
-                } else {
-                  int n = enemyLayer.onCoord(x, y);
-
-                  if (n >= 0) {
-                    enemies.remove(n);
-                  }
-
-                  int[] a = {x, y, selectionPane.selectedEnemy - 1}; // subtract 1 because the first menu item is not technically an enemy object
-                  enemies.add(a);
-                }
-
-                break;
-            }
-          }
+        if (tileType > 0) drawTile(tileType, tileX, tileY);
+        if (isSelectionAllowed(tileX, tileY) == true) {
+          drawSelectionBox(tileX, tileY);
+          selectionBoxMouseClickEvent(x, y);
         }
       }
     }
+  }
+
+  private void drawTile(int tileType, int tileX, int tileY) {
+    PImage tileImage = getImageSlice(
+                         resources.tileSheetBlockLayer,
+                         mapLegend[tileType][0],
+                         mapLegend[tileType][1],
+                         tileWidth,
+                         tileHeight
+                       );
+    image(
+      tileImage,
+      tileX,
+      tileY,
+      tileWidth,
+      tileHeight
+    );
   }
 
   private PImage getImageSlice (PImage srcImage, int spriteX, int spriteY, int spriteW, int spriteH) {
@@ -180,4 +117,60 @@ private class LayerBlock {
     img.updatePixels();
     return img;
   }
+
+  private boolean isSelectionAllowed (int tileX, int tileY) {
+    return (
+             !viewportScroller.isScrubbing
+             && !fileMenu.hasActiveMenuItem()
+             && !dialog.isOpen
+             && !changeMapSizeWindow.isOpen
+             && mouse.overRect(tileX + floor(viewportScrubOffsetLeft), tileY, tileWidth, tileHeight)
+           );
+  }
+
+  private void drawSelectionBox (int tileX, int tileY) {
+    pushStyle();
+    fill(0, 120, 255, 128);
+    rect(tileX, tileY, tileWidth, tileHeight);
+    popStyle();
+  }
+
+  private void selectionBoxMouseClickEvent (int x, int y) {
+    // prevent block placement when user has clicked outside the viewport area (such as the menu pane)
+    if (mouse.wasClicked && mouseX < globals.viewportWidth) {
+      switch (activeMapLayer) {
+        case 0:
+          blocksLayer.mapData[y][x] = selectionPane.selectedTile;
+          break;
+        case 1:
+          if (selectionPane.selectedObject == 0) {
+            int n = objectsLayer.onCoord(x, y);
+            if (n >= 0) objects.remove(n);
+          } else if (selectionPane.selectedObject == 1) {
+            objectsLayer.playerTileX = x;
+            objectsLayer.playerTileY = y;
+          } else {
+            int n = objectsLayer.onCoord(x, y);
+            if (n >= 0) objects.remove(n);
+            // subtract 2 because the first 2 menu items are not technically interactive objects
+            int[] a = {x, y, selectionPane.tileAlignment, selectionPane.selectedObject - 2};
+            objects.add(a);
+          }
+          break;
+        case 2:
+          if (selectionPane.selectedEnemy == 0) {
+            int n = enemyLayer.onCoord(x, y);
+            if (n >= 0) enemies.remove(n);
+          } else {
+            int n = enemyLayer.onCoord(x, y);
+            if (n >= 0) enemies.remove(n);
+            // subtract 1 because the first menu item is not technically an enemy object
+            int[] a = {x, y, selectionPane.selectedEnemy - 1};
+            enemies.add(a);
+          }
+          break;
+      }
+    }
+  }
+
 }
