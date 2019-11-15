@@ -9,7 +9,8 @@
                  TerraceEditor/resources/graphics/home.png,
                  TerraceEditor/resources/graphics/objects-tileset.gif,
                  TerraceEditor/resources/graphics/player-head.gif,
-                 TerraceEditor/resources/graphics/srubber.gif,
+                 TerraceEditor/resources/graphics/srubber-horizontal.gif,
+                 TerraceEditor/resources/graphics/srubber-vertical.gif,
                  TerraceEditor/resources/graphics/viewport-background.gif,
                  TerraceEditor/resources/graphics/world-tileset.png"; */
 
@@ -31,7 +32,8 @@ MapSizeWindow changeMapSizeWindow;
 ArrayList enemies;
 ArrayList objects;
 
-float viewportScrubOffsetLeft;
+float viewportScrubOffsetX;
+float viewportScrubOffsetY;
 
 PImage backgroundImage;
 
@@ -44,7 +46,7 @@ void setup () {
   applet = this;
 
   frameRate(15);
-  size(735, 650);
+  size(755, 650);
   noSmooth();
   noStroke();
 
@@ -52,7 +54,8 @@ void setup () {
   objects = new ArrayList();
 
   activeMapLayer = 0;
-  viewportScrubOffsetLeft = 0;
+  viewportScrubOffsetX = 0;
+  viewportScrubOffsetY = 0;
 
   globals = new Globals();
   resources = new Resources();
@@ -61,12 +64,12 @@ void setup () {
   keyboard = new Keyboard();
   dialog = new Dialog();
   changeMapSizeWindow = new MapSizeWindow(320, 170);
-  fileMenu = new FileMenu(0, 0, globals.fileMenuWidth, globals.fileMenuHeight);
-  selectionPane = new SelectionPane(globals.viewportWidth, 0, globals.menuPaneWidth, globals.menuPaneHeight);
-  viewportScroller = new Scrollbar(0, globals.viewportHeight + globals.fileMenuHeight, globals.viewportScrollbarWidth, globals.viewportScrollbarHeight);
-  blocksLayer = new LayerBlock(0, globals.fileMenuHeight, globals.viewportWidth, globals.viewportHeight);
-  objectsLayer = new LayerObject(0, globals.fileMenuHeight, globals.viewportWidth, globals.viewportHeight);
-  enemyLayer = new LayerEnemy(0, globals.fileMenuHeight, globals.viewportWidth, globals.viewportHeight);
+  fileMenu = new FileMenu(0, 0, globals.fileMenuWidth + globals.viewportScrollbarThickness, globals.fileMenuHeight);
+  selectionPane = new SelectionPane(globals.viewportWidth + globals.viewportScrollbarThickness, 0, globals.menuPaneWidth, globals.menuPaneHeight);
+  viewportScroller = new Scrollbar();
+  blocksLayer = new LayerBlock(globals.viewportX, globals.viewportY, globals.viewportWidth, globals.viewportHeight);
+  objectsLayer = new LayerObject(globals.viewportX, globals.viewportY, globals.viewportWidth, globals.viewportHeight);
+  enemyLayer = new LayerEnemy(globals.viewportX, globals.viewportY, globals.viewportWidth, globals.viewportHeight);
   
   fileMenu.init();
   viewportScroller.init();
@@ -74,23 +77,19 @@ void setup () {
   objectsLayer.init();
   enemyLayer.init();
   changeMapSizeWindow.init();
-  viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);
+  viewportScroller.checkHorizontal(blocksLayer.mapWidth, globals.viewportWidth);
+  viewportScroller.checkVertical(blocksLayer.mapHeight, globals.viewportHeight);
   fileMenu.activate();
 }
 
 void draw () {
-  applet.background(0);
-  image(resources.viewportBackground, 0, globals.fileMenuHeight, globals.viewportWidth, globals.viewportHeight);
+  applet.background(200);
+  image(resources.viewportBackground, globals.viewportX, globals.viewportY, globals.viewportWidth, globals.viewportHeight);
   mouse.cursor = ARROW; // reset every draw (evaluated in code below)
 
-  if (
-    !viewportScroller.isDisabled
-    && viewportScroller.isScrubbing
-  ) {
-    viewportScrubOffsetLeft = -(viewportScroller.scrubValue * (blocksLayer.mapWidth - globals.viewportWidth));
-  }
-
-  applet.translate(viewportScrubOffsetLeft, 0);
+  viewportScrubOffsetX = -(viewportScroller.scrubValueX * (blocksLayer.mapWidth - globals.viewportWidth));
+  viewportScrubOffsetY = -(viewportScroller.scrubValueY * (blocksLayer.mapHeight - globals.viewportHeight));
+  applet.translate(viewportScrubOffsetX, viewportScrubOffsetY);
 
   if (activeMapLayer != 0) {
     applet.tint(255, 100);
@@ -113,7 +112,7 @@ void draw () {
   enemyLayer.iterate();
   applet.noTint();
 
-  applet.translate(-viewportScrubOffsetLeft, 0);
+  applet.translate(-viewportScrubOffsetX, -viewportScrubOffsetY);
   selectionPane.iterate();
   viewportScroller.iterate();
   fileMenu.iterate();
@@ -241,7 +240,8 @@ void importMap (HashMap params) {
     }
 
     blocksLayer.reset(newMapData);
-    viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);
+    viewportScroller.checkHorizontal(blocksLayer.mapWidth, globals.viewportWidth);
+    viewportScroller.checkVertical(blocksLayer.mapHeight, globals.viewportHeight);
     dialog.showMessage("Map was successfully loaded.");
   }
 }

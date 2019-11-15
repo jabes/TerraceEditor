@@ -59,16 +59,14 @@ public class SelectionPane {
     drawTab(1, resources.homeIcon);
     drawTab(2, resources.birdIcon);
 
-    if (selectedTab == 0) {
-      drawTilePane();
-    } else if (selectedTab == 1) {
-      drawObjectPane();
-    } else if (selectedTab == 2) {
-      drawEnemyPane();
+    switch (selectedTab) {
+      case 0: drawTilePane(); break;
+      case 1: drawObjectPane(); break;
+      case 2: drawEnemyPane(); break;
     }
   }
 
-  void drawTilePane () {
+  private void drawTilePane () {
     drawButton(
       0, 0, 32, 32,
       resources.eraserSprite,
@@ -88,7 +86,7 @@ public class SelectionPane {
     }
   }
 
-  void drawObjectPane () {
+  private void drawObjectPane () {
     drawButton(
       0, 0, 32, 32,
       resources.eraserSprite,
@@ -116,7 +114,7 @@ public class SelectionPane {
     drawAlignmentPad();
   }
 
-  void drawEnemyPane () {
+  private void drawEnemyPane () {
     drawButton(
       0, 0, 32, 32,
       resources.eraserSprite,
@@ -136,9 +134,9 @@ public class SelectionPane {
     }
   }
 
-  void drawAlignmentPad () {
-    int alignPadX = globals.viewportWidth + 10;
-    int alignPadY = globals.viewportHeight - 49;
+  private void drawAlignmentPad () {
+    int alignPadX = posX + 10;
+    int alignPadY = posY + sizeHeight - (13*3) - 10;
 
     for (int i = 0; i < alignmentButtonData.length; i++) {
       int[] button = alignmentButtonData[i];
@@ -146,10 +144,14 @@ public class SelectionPane {
       if (
         !dialog.isOpen
         && !changeMapSizeWindow.isOpen
-        && mouse.overRect(alignPadX + button[0], alignPadY + button[1], button[2], button[3])
+        && mouse.overRect(
+          alignPadX + button[0],
+          alignPadY + button[1],
+          button[2],
+          button[3]
+        )
       ) {
         mouse.cursor = HAND;
-
         if (mouse.wasClicked) {
           tileAlignment = button[4];
         }
@@ -163,21 +165,27 @@ public class SelectionPane {
         fill(200);
       }
 
-      rect(alignPadX + button[0], alignPadY + button[1], button[2], button[3]);
+      rect(
+        alignPadX + button[0],
+        alignPadY + button[1],
+        button[2],
+        button[3]
+      );
+
       popStyle();
     }
 
     image(resources.alignmentSprite, alignPadX, alignPadY, 39, 39);
   }
 
-  void drawButton (int x, int y, int w, int h, PImage gfx, color c) {
-    int tileX;
-    int tileY = menuContentOffsetTop + buttonSpacing + buttonRowCount * (blocksLayer.tileHeight + buttonSpacing);
+  private void drawButton (int x, int y, int w, int h, PImage gfx, color c) {
+    int tileX = posX;
+    int tileY = posY + menuContentOffsetTop + buttonSpacing + buttonRowCount * (blocksLayer.tileHeight + buttonSpacing);
 
-    if (buttonCount % 2 == 0) { // even
-      tileX = globals.viewportWidth + buttonSpacing;
-    } else { // odd
-      tileX = globals.viewportWidth + blocksLayer.tileWidth + (buttonSpacing * 2);
+    if (buttonCount % 2 == 0) {
+      tileX += buttonSpacing;
+    } else {
+      tileX += blocksLayer.tileWidth + (buttonSpacing * 2);
       buttonRowCount++;
     }
 
@@ -202,11 +210,11 @@ public class SelectionPane {
     buttonCount++;
   }
 
-  void drawTab (int i, PImage tabIcon) {
-    final int tabWidth = 45;
-    final int tabHeight = 30;
-    final int tabX = globals.viewportWidth + (tabWidth * i);
-    final int tabY = 0;
+  private void drawTab (int i, PImage tabIcon) {
+    int tabWidth = 45;
+    int tabHeight = 30;
+    int tabX = posX + (tabWidth * i);
+    int tabY = posY;
 
     boolean isMouseOver = mouse.overRect(tabX, tabY, tabWidth, tabHeight);
     pushStyle();
@@ -260,13 +268,19 @@ public class SelectionPane {
     }
   }
 
-  void checkTile (int x, int y, int w, int h, int i) {
+  private void checkTile (int x, int y, int w, int h, int i) {
     boolean isMouseOver = mouse.overRect(x, y, w, h);
+    boolean isTileSelected = false;
     int sel = 0;
 
-    if (isMouseOver && !dialog.isOpen && !changeMapSizeWindow.isOpen) {
+    if (
+      isMouseOver
+      && !dialog.isOpen
+      && !changeMapSizeWindow.isOpen
+      && !viewportScroller.isScrubbing()
+      && !fileMenu.hasActiveMenuItem()
+    ) {
       mouse.cursor = HAND;
-
       if (mouse.wasClicked) {
         switch (selectedTab) {
           case 0: selectedTile = i; break;
@@ -283,7 +297,14 @@ public class SelectionPane {
     }
 
     // draw active/hover borders
-    if (!dialog.isOpen && !changeMapSizeWindow.isOpen && (sel == i || isMouseOver)) {
+    isTileSelected = sel == i;
+    if (
+      (isTileSelected || isMouseOver)
+      && !dialog.isOpen
+      && !changeMapSizeWindow.isOpen
+      && !viewportScroller.isScrubbing()
+      && !fileMenu.hasActiveMenuItem()
+    ) {
       pushStyle();
       fill(0, 120, 255);
       rect(x - 2, y - 2, w + 4, w + 4);

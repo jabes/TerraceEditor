@@ -10,7 +10,8 @@ public class Resources {
   final PImage homeIcon;
   final PImage birdIcon;
   final PImage alignmentSprite;
-  final PImage srubberSprite;
+  final PImage srubberHorizontal;
+  final PImage srubberVertical;
   final PImage viewportBackground;
 
   private String graphicsPath;
@@ -32,7 +33,8 @@ public class Resources {
     homeIcon               = loadImage(graphicsPath + "/home.png");
     birdIcon               = loadImage(graphicsPath + "/bird.png");
     alignmentSprite        = loadImage(graphicsPath + "/alignment.gif");
-    srubberSprite          = loadImage(graphicsPath + "/srubber.gif");
+    srubberHorizontal      = loadImage(graphicsPath + "/srubber-horizontal.gif");
+    srubberVertical        = loadImage(graphicsPath + "/srubber-vertical.gif");
     viewportBackground     = loadImage(graphicsPath + "/viewport-background.gif");
   }
 

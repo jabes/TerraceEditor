@@ -96,11 +96,16 @@ private class LayerBlock {
 
   private boolean isSelectionAllowed (int tileX, int tileY) {
     return (
-             !viewportScroller.isScrubbing
+             !viewportScroller.isScrubbing()
              && !fileMenu.hasActiveMenuItem()
              && !dialog.isOpen
              && !changeMapSizeWindow.isOpen
-             && mouse.overRect(tileX + floor(viewportScrubOffsetLeft), tileY, tileWidth, tileHeight)
+             && mouse.overRect(
+                  tileX + floor(viewportScrubOffsetX),
+                  tileY + floor(viewportScrubOffsetY),
+                  tileWidth,
+                  tileHeight
+                )
            );
   }
 

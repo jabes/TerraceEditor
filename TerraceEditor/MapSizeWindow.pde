@@ -91,8 +91,10 @@ private class MapSizeWindow extends Window {
           }
 
           blocksLayer.reset(newMapData);
-          viewportScrubOffsetLeft = 0;
-          viewportScroller.check(blocksLayer.mapWidth, globals.viewportWidth);
+          viewportScroller.resetHorizontal();
+          viewportScroller.resetVertical();
+          viewportScroller.checkHorizontal(blocksLayer.mapWidth, globals.viewportWidth);
+          viewportScroller.checkVertical(blocksLayer.mapHeight, globals.viewportHeight);
           hide();
         } else {
           error("The map requires at least ten or more tiles to be valid.");

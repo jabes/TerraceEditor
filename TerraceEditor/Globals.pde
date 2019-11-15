@@ -10,11 +10,15 @@ static class Globals {
   final int viewportHeight = 600;
   final int viewportHalfWidth = 300;
   final int viewportHalfHeight = 300;
-  final int viewportScrollbarWidth = viewportWidth;
-  final int viewportScrollbarHeight = 20;
+  final int viewportScrollbarLength = viewportWidth;
+  final int viewportScrollbarThickness = 20;
+
   final int fileMenuWidth = viewportWidth;
   final int fileMenuHeight = 30;
   final int menuPaneWidth = 135;
-  final int menuPaneHeight = viewportHeight + viewportScrollbarHeight + fileMenuHeight;
+  final int menuPaneHeight = viewportHeight + viewportScrollbarThickness + fileMenuHeight;
+
+  final int viewportX = 0;
+  final int viewportY = fileMenuHeight;
 
 }
