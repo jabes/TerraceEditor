@@ -113,8 +113,16 @@ private class LayerObject {
           break;
       }
 
+      PImage spriteImage = getImageSlice(
+        resources.tileSheetObjectLayer,
+        spriteData[0],
+        spriteData[1],
+        spriteWidth,
+        spriteHeight
+      );
+
       image(
-        resources.tileSheetObjectLayer.get(spriteData[0], spriteData[1], spriteWidth, spriteHeight),
+        spriteImage,
         posX + objectX,
         posY + objectY,
         spriteWidth,

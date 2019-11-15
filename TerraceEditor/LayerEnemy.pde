@@ -43,6 +43,7 @@ private class LayerEnemy {
       tileX = enemyData[0];
       tileY = enemyData[1];
       enemyType = enemyData[2];
+
       // 0 = spriteX
       // 1 = spriteY
       // 2 = spriteWidth
@@ -50,11 +51,21 @@ private class LayerEnemy {
       spriteData = enemyLegend[enemyType];
       spriteWidth = spriteData[2];
       spriteHeight = spriteData[3];
+
       // align bottom middle
       enemyX = (tileX * blocksLayer.tileWidth) + (blocksLayer.tileWidth / 2) - (spriteWidth / 2);
       enemyY = (tileY * blocksLayer.tileHeight) + blocksLayer.tileHeight - spriteHeight;
+
+      PImage spriteImage = getImageSlice(
+        spriteLegend[enemyType],
+        spriteData[0],
+        spriteData[1],
+        spriteWidth,
+        spriteHeight
+      );
+
       image(
-        spriteLegend[enemyType].get(spriteData[0], spriteData[1], spriteWidth, spriteHeight),
+        spriteImage,
         posX + enemyX,
         posY + enemyY,
         spriteWidth,

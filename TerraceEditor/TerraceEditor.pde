@@ -268,8 +268,14 @@ PImage getImageSlice (PImage srcImage, int spriteX, int spriteY, int spriteW, in
   int p2 = 0;
   boolean grabX = false;
   boolean grabY = false;
+
+  if (spriteW == srcImage.width && spriteH == srcImage.height) {
+    return srcImage;
+  }
+
   PImage img = createImage(spriteW, spriteH, RGB);
   img.loadPixels();
+
   for (int h = 0; h < srcImage.height; h++) {
     if (h >= spriteY && h < spriteY + spriteH) grabY = true;
     for (int w = 0; w < srcImage.width; w++) {
@@ -283,6 +289,7 @@ PImage getImageSlice (PImage srcImage, int spriteX, int spriteY, int spriteW, in
     }
     grabY = false;
   }
+
   img.updatePixels();
   return img;
 }
