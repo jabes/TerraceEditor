@@ -1,19 +1,3 @@
-/* @pjs font="TerraceEditor/resources/fonts/VCR-OSD-Mono.ttf"; */
-
-/* @pjs preload="TerraceEditor/resources/graphics/alignment.gif,
-                 TerraceEditor/resources/graphics/bird.png,
-                 TerraceEditor/resources/graphics/enemy-sprite-gilliam-knight.gif,
-                 TerraceEditor/resources/graphics/enemy-sprite-kintot.gif,
-                 TerraceEditor/resources/graphics/eraser.png,
-                 TerraceEditor/resources/graphics/globe.png,
-                 TerraceEditor/resources/graphics/home.png,
-                 TerraceEditor/resources/graphics/objects-tileset.gif,
-                 TerraceEditor/resources/graphics/player-head.gif,
-                 TerraceEditor/resources/graphics/srubber-horizontal.gif,
-                 TerraceEditor/resources/graphics/srubber-vertical.gif,
-                 TerraceEditor/resources/graphics/viewport-background.gif,
-                 TerraceEditor/resources/graphics/world-tileset.png"; */
-
 PApplet applet;
 Globals globals;
 Resources resources;
@@ -121,13 +105,8 @@ void draw () {
 
   cursor(mouse.cursor);
 
-  if (mouse.wasClicked) {
-    mouse.reset();
-  }
-
-  if (keyboard.wasPressed) {
-    keyboard.reset();
-  }
+  if (mouse.wasClicked) mouse.reset();
+  if (keyboard.wasPressed) keyboard.reset();
 }
 
 void keyPressed () {
@@ -273,7 +252,7 @@ PImage getImageSlice (PImage srcImage, int spriteX, int spriteY, int spriteW, in
     return srcImage;
   }
 
-  PImage img = createImage(spriteW, spriteH, RGB);
+  PImage img = createImage(spriteW, spriteH, ARGB);
   img.loadPixels();
 
   for (int h = 0; h < srcImage.height; h++) {
