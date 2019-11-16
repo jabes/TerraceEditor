@@ -135,7 +135,11 @@ private class FileMenu {
     fill(isMenuButtonActive ? 40 : 200);
     textFont(fonts.VcrOsdMono);
     textAlign(CENTER, CENTER);
-    text(menuItems[menuButtonIndex], menuButtonX + (menuButtonWidth / 2), menuButtonY + (menuButtonHeight / 2));
+    text(
+      menuItems[menuButtonIndex],
+      menuButtonX + (menuButtonWidth / 2),
+      menuButtonY + (menuButtonHeight / 2)
+    );
     popStyle();
   }
 
@@ -194,7 +198,11 @@ private class FileMenu {
     fill(isMouseOverButton ? 80 : 60);
     textFont(fonts.VcrOsdMono);
     textAlign(LEFT, CENTER);
-    text(subMenuItems[subMenuButtonIndex], subMenuButtonX + 8, subMenuButtonY + (subMenuButtonHeight / 2));
+    text(
+      subMenuItems[subMenuButtonIndex],
+      subMenuButtonX + 8,
+      subMenuButtonY + (subMenuButtonHeight / 2)
+    );
     popStyle();
   }
 

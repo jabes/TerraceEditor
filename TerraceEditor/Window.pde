@@ -51,9 +51,7 @@ abstract class Window {
     text(
       headerText,
       headerX + windowPadding,
-      headerY,
-      headerWidth,
-      headerHeight
+      headerY + (headerHeight / 2)
     );
     popStyle();
   }
@@ -74,29 +72,39 @@ abstract class Window {
   }
 
   boolean drawNumberField (int width, String label, int value, boolean hasFocus) {
-    final int fieldPadding = 5;
-    final int fieldW = width + (fieldPadding * 2);
-    final int fieldH = 18 + (fieldPadding * 2);
-    final int fieldX = windowX + windowWidth - windowPadding - fieldW;
-    final int fieldY = windowY + windowPadding + numberFieldOffsetTop;
-    final int labelW = windowWidth - (windowPadding * 2) - fieldW;
-    final int labelH = fieldH;
-    final int labelX = windowX + windowPadding;
-    final int labelY = fieldY;
+    int fieldPadding = 5;
+    int fieldStroke = 1;
+    int fieldW = width + (fieldPadding * 2);
+    int fieldH = 18 + (fieldPadding * 2);
+    int fieldX = windowX + windowWidth - windowPadding - fieldW;
+    int fieldY = windowY + windowPadding + numberFieldOffsetTop;
+    int labelW = windowWidth - (windowPadding * 2) - fieldW;
+    int labelH = fieldH;
+    int labelX = windowX + windowPadding;
+    int labelY = fieldY;
 
     boolean isMouseOverField = mouse.overRect(fieldX, fieldY, fieldW, fieldH);
-    numberFieldOffsetTop += (fieldH + windowPadding);
 
     pushStyle();
     fill(80);
     textFont(fonts.VcrOsdMono);
     textAlign(LEFT, CENTER);
-    text(label, labelX, labelY, labelW, labelH);
+    text(
+      label,
+      labelX,
+      labelY + (labelH / 2),
+      labelW
+    );
     popStyle();
 
     pushStyle();
     fill(isMouseOverField ? 220 : 200);
-    stroke(hasFocus ? 230 : 180, hasFocus ? 100 : 180, hasFocus ? 0 : 180);
+    strokeWeight(fieldStroke);
+    stroke(
+      hasFocus ? 230 : 180,
+      hasFocus ? 100 : 180,
+      hasFocus ? 0 : 180
+    );
     rect(fieldX, fieldY, fieldW, fieldH);
     popStyle();
 
@@ -104,12 +112,19 @@ abstract class Window {
     fill(0);
     textFont(fonts.VcrOsdMono);
     textAlign(LEFT, CENTER);
-    text(str(value), fieldX + fieldPadding, fieldY + fieldPadding, fieldW - (fieldPadding * 2), fieldH - (fieldPadding * 2));
+    text(
+      str(value),
+      fieldX + fieldPadding,
+      fieldY + (fieldH / 2),
+      fieldW - (fieldPadding * 2)
+    );
     popStyle();
 
     if (isMouseOverField) {
       mouse.cursor = HAND;
     }
+
+    numberFieldOffsetTop += (fieldH + windowPadding);
 
     return isMouseOverField;
   }
@@ -118,22 +133,34 @@ abstract class Window {
     textFont(fonts.VcrOsdMono);
     textAlign(CENTER, CENTER);
 
-    final int buttonW = (int) textWidth(label) + 20;
-    final int buttonH = 30;
-    final int buttonX = windowX + windowWidth - buttonW - windowPadding - buttonOffsetRight;
-    final int buttonY = windowY + windowHeight - buttonH - windowPadding;
+    int buttonW = (int) textWidth(label) + 20;
+    int buttonH = 30;
+    int buttonX = windowX + windowWidth - buttonW - windowPadding - buttonOffsetRight;
+    int buttonY = windowY + windowHeight - buttonH - windowPadding;
 
     boolean isMouseOverButton = mouse.overRect(buttonX, buttonY, buttonW, buttonH);
     buttonOffsetRight += (buttonW + windowPadding);
 
     pushStyle();
-    fill(isMouseOverButton ? 215 : 230, isMouseOverButton ? 125 : 165, isMouseOverButton ? 250 : 255);
+    fill(
+      isMouseOverButton ? 215 : 230,
+      isMouseOverButton ? 125 : 165,
+      isMouseOverButton ? 250 : 255
+    );
     rect(buttonX, buttonY, buttonW, buttonH);
     popStyle();
 
     pushStyle();
-    fill(isMouseOverButton ? 80 : 120, isMouseOverButton ? 45 : 75, isMouseOverButton ? 90 : 130);
-    text(label, buttonX, buttonY, buttonW, buttonH);
+    fill(
+      isMouseOverButton ? 80 : 120,
+      isMouseOverButton ? 45 : 75,
+      isMouseOverButton ? 90 : 130
+    );
+    text(
+      label,
+      buttonX + (buttonW / 2),
+      buttonY + (buttonH / 2)
+    );
     popStyle();
 
     if (isMouseOverButton) {
